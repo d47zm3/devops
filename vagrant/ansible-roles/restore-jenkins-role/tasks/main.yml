@@ -1,0 +1,10 @@
+---
+
+- name: Download Backup
+  get_url: url=https://github.com/d47zm3/vagrant/raw/master/files/jenkins_config.tar.gz dest=/var/lib/jenkins/jenkins_config.tar.gz
+
+- name: Extract Backup of Jenkins
+  unarchive: src=/var/lib/jenkins/jenkins_config.tar.gz dest=/var/lib/jenkins/ copy=no
+
+- name: Restart Jenkins
+  service: name=jenkins state=restarted

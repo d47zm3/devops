@@ -1,0 +1,30 @@
+- name: Add User For Nexus
+  user: name=nexus comment="Sonatype Nexus for Artifacts" home=/opt/nexus
+
+- name: Remove /opt/nexus
+  file: path=/opt/nexus state=absent
+
+- name: Download Nexus Package
+  get_url: url=http://download.sonatype.com/nexus/3/latest-unix.tar.gz dest=/opt/nexus-3-latest.tar.gz
+
+- name: Unpack Nexus
+  unarchive: src=/opt/nexus-3-latest.tar.gz copy=no dest=/opt/ owner=nexus group=nexus
+
+- name: Rename Nexus Directory
+  shell: shopt -s dotglob;  mv /opt/nexus-3.* /opt/nexus executable=/bin/bash
+
+- name: Set Permissions
+  file:  path=/opt/nexus owner=nexus group=nexus recurse=yes
+
+- name: Set Permissions
+  file:  path=/opt/sonatype-work owner=nexus group=nexus recurse=yes
+
+- name: Provision Nexus Service File
+  template: src=nexus.service.j2 dest=/usr/lib/systemd/system/nexus.service owner=root group=root
+
+- name: Reload SYSTEMCTL
+  shell: sudo systemctl daemon-reload
+
+- name: Enable Startup at Boot and Start Service
+  service: name=nexus state=restarted enabled=yes
+

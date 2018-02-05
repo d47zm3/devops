@@ -1,0 +1,12 @@
+- name: exploit-centos
+  box: centos/7
+  ram: 512
+  ip: 192.168.56.112
+  port: 2202
+  cpu: 2
+- name: exploit-debian
+  box: debian/jessie64
+  ram: 512
+  ip: 192.168.56.112
+  port: 2202
+  cpu: 2

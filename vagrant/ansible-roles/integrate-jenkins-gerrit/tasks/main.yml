@@ -1,0 +1,69 @@
+---
+
+- name: Restore Personal Account on master01 with SSH keys
+  local_action:  shell su - damian.tykalowski -c "exit"
+
+- name: Restore Personal Account on master01 with SSH keys
+  local_action:  get_url url=https://github.com/d47zm3/vagrant/raw/master/files/ssh_keys.tar.gz dest=/home/damian.tykalowski/ssh_keys.tar.gz
+
+- name: Extract SSH keys
+  local_action: unarchive src=/home/damian.tykalowski/ssh_keys.tar.gz dest=/home/damian.tykalowski/ copy=no
+
+- name: Set Git Username and Email
+  local_action: shell  su - damian.tykalowski -c 'git config --global user.name "Damian Tykalowski"'
+
+- name: Set Git Username and Email
+  local_action: shell su - damian.tykalowski -c 'git config --global user.email d47zm3@gmail.com'
+
+- name: Install Maven On Jenkins Host
+  yum: name=maven state=installed
+  when: inventory_hostname in groups['jenkins']
+
+- name: Download Jenkins Backup
+  get_url: url=https://github.com/d47zm3/vagrant/raw/master/files/full_jenkins.tar.gz dest=/var/lib/jenkins/full_jenkins.tar.gz
+  when: inventory_hostname in groups['jenkins']
+
+- name: Extract Backup of Jenkins
+  unarchive: src=/var/lib/jenkins/full_jenkins.tar.gz dest=/var/lib/jenkins/ copy=no
+  when: inventory_hostname in groups['jenkins']
+
+- name: Restart Jenkins
+  service: name=jenkins state=restarted
+  when: inventory_hostname in groups['jenkins']
+
+- name: Download Gerrit Backup
+  get_url: url=https://github.com/d47zm3/vagrant/raw/master/files/full_gerrit.tar.gz dest=/var/gerrit/full_gerrit.tar.gz
+  when: inventory_hostname in groups['gerrit']
+
+- name: Download Gerrit MySQL Backup
+  get_url: url=https://github.com/d47zm3/vagrant/raw/master/files/gerrit.sql dest=/tmp/gerrit.sql
+  when: inventory_hostname in groups['gerrit']
+
+- name: Load Gerrit MySQL Backup
+  shell: mysql -ugerrit -pPassword123 gerrit_reviewdb < /tmp/gerrit.sql
+  when: inventory_hostname in groups['gerrit']
+
+- name: Extract Backup of Gerrit
+  unarchive: src=/var/gerrit/full_gerrit.tar.gz dest=/var/gerrit/ copy=no
+  when: inventory_hostname in groups['gerrit']
+
+- name: Restart Gerrit
+  service: name=gerrit state=restarted
+  when: inventory_hostname in groups['gerrit']
+
+- name: Generate Jenkins Key
+  shell: sudo -u jenkins ssh-keygen -f /var/lib/jenkins/.ssh/id_rsa -t rsa -N ''
+  when: inventory_hostname in groups['jenkins']
+
+- name: Download That Key
+  local_action: shell ssh devops01 "cat /var/lib/jenkins/.ssh/id_rsa.pub" > /root/jenkins.pubkey
+
+- name: Wait 30 seconds for Gerrit to get up
+  pause: seconds=30
+  
+- name: Add That Key To Jenkins User
+  local_action: shell cat /root/jenkins.pubkey | ssh -o StrictHostKeyChecking=no -p 29418 -i /home/damian.tykalowski/.ssh/id_rsa damian.tykalowski@devops02 gerrit set-account --add-ssh-key - jenkins
+
+- name: Set Jenkins Username
+  local_action: shell ssh -o StrictHostKeyChecking=no -p 29418 -i /home/damian.tykalowski/.ssh/id_rsa damian.tykalowski@devops02 gerrit set-account --full-name "Jenkins" jenkins
+

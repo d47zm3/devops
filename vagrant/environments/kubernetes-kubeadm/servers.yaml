@@ -1,0 +1,22 @@
+- name: kubernetes03
+  box: centos/7
+  ram: 1500
+  ip: 192.168.100.103
+  port: 2203
+  cpu: 4
+  provision_script: "provisioning/kubernetes03.sh"
+- name: kubernetes02
+  box: centos/7
+  ram: 1500
+  ip: 192.168.100.102
+  port: 2202
+  cpu: 4
+  provision_script: "provisioning/kubernetes02.sh"
+- name: kubernetes01
+  box: centos/7
+  ram: 1500
+  ip: 192.168.100.101
+  port: 2201
+  cpu: 4
+  provision_script: "provisioning/kubernetes01.sh"
+

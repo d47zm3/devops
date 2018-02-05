@@ -1,0 +1,17 @@
+[auth]
+{% if gerrit_auth_register_email_private_key is defined %}
+        registerEmailPrivateKey = {{ gerrit_auth_register_email_private_key }}
+{% endif %}
+{% if gerrit_database_type == 'postgresql' or gerrit_database_type == 'mysql' %}
+[database]
+        password = {{ gerrit_database_password }}
+{% endif %}
+{% if gerrit_auth_type in ['LDAP', 'HTTP_LDAP'] and gerrit_ldap_password is defined %}
+[ldap]
+        password = {{ gerrit_ldap_password }}
+{% endif %}
+{% if gerrit_sendemail_password is defined %}
+[sendemail]
+ 	smtpPass = {{ gerrit_sendemail_password }}
+{% endif %}
+

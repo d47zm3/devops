@@ -1,0 +1,37 @@
+---
+
+- name: Install Neccessary Packages For Compilation
+  yum: name={{ item }} state=installed
+  with_items:
+  - gcc 
+  - python-devel
+  - librsync-devel
+  - python-lockfile
+  - python-setuptools
+
+- name: Download Sources (version 0.7)
+  get_url: url=https://code.launchpad.net/duplicity/0.7-series/{{ version }}/+download/duplicity-{{ version }}.tar.gz dest=/opt/duplicity-{{ version }}.tar.gz 
+  when: version > 0.7
+
+
+- name: Download Sources (version 0.6)
+  get_url: url=https://code.launchpad.net/duplicity/0.7-series/{{ version }}/+download/duplicity-{{ version }}.tar.gz dest=/opt/duplicity-{{ version }}.tar.gz 
+  when: ( version < 0.7 and version > 0.6)
+
+- name: Unpack Sources
+  unarchive: src=/opt/duplicity-{{ version }}.tar.gz copy=no dest=/opt/
+
+- name: Run Install
+  shell: python setup.py install chdir=/opt/duplicity-{{ version }}
+
+- name: Run Version Test
+  shell: duplicity --version
+  register: dup_version
+
+- name: Cleanup
+  file: path=/opt/duplicity-{{ version }} state=absent
+
+- name: Cleanup
+  file: path=/opt/duplicity-{{ version }}.tar.gz state=absent
+
+- debug: var=dup_version

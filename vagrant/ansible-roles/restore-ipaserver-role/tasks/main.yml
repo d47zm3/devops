@@ -1,0 +1,10 @@
+---
+
+- name: Download Backup
+  get_url: url=https://github.com/d47zm3/vagrant/raw/master/files/ipa-full.tar.gz dest=/tmp/ipa-full.tar.gz
+
+- name: Extract Backup of FreeIPA
+  unarchive: src=/tmp/ipa-full.tar.gz dest=/tmp/
+
+- name: Restore Backup
+  shell: ipa-restore -p Password123 -U /tmp/var/lib/ipa/backup/ipa-full-2016-12-11-13-35-20/

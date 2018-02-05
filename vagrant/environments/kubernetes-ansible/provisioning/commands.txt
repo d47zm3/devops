@@ -1,0 +1,48 @@
+kubectl describe nodes
+kubectl describe nodes -o jsonpath='{.items[*].status.addresses[?(@.type=="ExternalIP")].address}'
+kubectl get nodes
+kubectl get pods
+kubectl create -f ./nginx.yml
+kubectl describe nginx
+kubectl describe pods
+kubectl describe pod nginx
+kubectl run busybox --image=busybox --restart=Never --tty -i --generator=run-pod/v1
+kubectl delete pod busybox
+kubectl delete pod nginx
+kubectl create -f ./nginx.yaml
+kubectl port-forward nginx :80 &
+kubectl get pods -l app=nginx
+kubectl create -f ./nginx-deployment-prod.yaml
+kubectl get pods
+kubectl get deployment
+kubectl create -f nginx-deployment-dev.yaml
+kubectl apply -f ./nginx-deployment-dev-update.yaml
+kubectl describe deployment nginx-deployment-dev
+kubectl create -f ./nginx-multi-label.yaml
+kubectl create -f ./nginx-multi-label.yaml
+kubectl describe replicationcontroller
+kubectl describe pods
+kubectl get service
+kubectl get replicationcontroller
+kubectl delete replicationcontroller nginx-www
+kubectl create -f ./nginx-multi-label.yaml
+kubectl describe nginx-service
+kubectl describe service nginx-service
+kubectl run busybox --generator=run-pod/v --image=busybox --restart=Never --tty -i
+kubectl run mysample --image=latest/apache
+kubectl run myreplicas --image=latest/apache --replicas= --labels=app=myapache,version=1.0
+kubectl describe deployment myreplicas
+kubectl describe pods -l version=1.0
+kubectl exec myapache date # by default it goes to first container in pod
+kubectl exec myapache -c CID date # container id or name
+kubectl exec myapache -it -- /bin/bash
+kubectl logs myapache
+kubectl logs --since=1h myapache
+kubectl logs --tail=1h myapache
+kubectl logs -f myapache
+kubectl logs -f -c CID myapache
+kubectl run myautoscale --image=latest123/apache  --port=80 --labels=app=myautoscale
+kubectl autoscale deployment myautoscale --min=2 --max=6
+kubectl scale --current-replicas=2 --replicas=4 deployment myautoscale
+kubectl scale --current-replicas=4 --replicas=2 deployment myautoscale
+

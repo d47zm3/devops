@@ -1,0 +1,14 @@
+---
+- hosts: all-updates
+  gather_facts: true
+  become_method: sudo
+  become_user: root
+  become: yes
+  serial: 3
+  tasks:
+    - name: Apply any available updates
+      yum:
+        name: "*"
+        state: latest
+        update_cache: yes
+      when: (ansible_distribution == "CentOS" or ansible_distribution == "RedHat" or ansible_distribution == "OracleLinux")

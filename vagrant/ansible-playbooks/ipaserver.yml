@@ -1,0 +1,13 @@
+- hosts: ipaserver
+  become: yes
+  become_method: sudo
+  vars:
+    - ipaserver_admin_password: Password123
+    - ipaserver_dir_admin_password: Password123
+    - ipaserver_domain: devops.pl
+    - ipaserver_realm: DEVOPS.PL
+    - ipaserver_dns_forwarder: 8.8.8.8
+  roles:
+    - ipaserver-role
+    - restore-ipaserver-role
+

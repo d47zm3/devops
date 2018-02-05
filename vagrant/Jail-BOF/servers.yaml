@@ -1,0 +1,6 @@
+- name: exploit-jail
+  box: jasonc/centos7-32bit
+  ram: 512
+  ip: 192.168.56.112
+  port: 2202
+  cpu: 2

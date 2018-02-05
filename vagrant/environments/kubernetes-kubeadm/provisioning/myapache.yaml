@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapache
+spec:
+  containers:
+  - name: myapache
+    image: latest123/apache
+    ports:
+    - containerPort: 80
+

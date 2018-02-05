@@ -1,0 +1,15 @@
+- name: docker02.devops.pl
+  box: centos/7
+  ram: 1500
+  ip: 192.168.100.102
+  port: 2202
+  cpu: 4
+  provision_script: "https://raw.githubusercontent.com/d47zm3/docker/master/provisioning/docker02.sh"
+- name: docker01.devops.pl
+  box: centos/7
+  ram: 1500
+  ip: 192.168.100.101
+  port: 2201
+  cpu: 4
+  provision_script: "https://raw.githubusercontent.com/d47zm3/docker/master/provisioning/docker01.sh"
+

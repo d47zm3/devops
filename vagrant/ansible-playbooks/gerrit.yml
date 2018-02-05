@@ -1,0 +1,39 @@
+- hosts: gerrit
+  become: yes
+  become_method: sudo
+  vars:
+    java_packages: java-1.8.0-openjdk
+    gerrit_httpd_listen_url: "http://gerrit.devops.pl:8080/"
+    gerrit_canonical_web_url: "http://gerrit.devops.pl:8080/"
+    gerrit_sendemail_smtp_server: "smtp.gmail.com"
+    gerrit_database_type: "mysql"
+    gerrit_database_db: "gerrit_reviewdb"
+    gerrit_database_hostname: "localhost"
+    gerrit_database_username: "gerrit"
+    gerrit_database_password: "Password123"
+    gerrit_auth_type: "LDAP"
+    gerrit_ldap_server: "ldap://ldap.devops.pl"
+    gerrit_ldap_account_base: cn=users,cn=accounts,dc=devops,dc=pl
+    gerrit_ldap_account_scope: "subtree"
+    gerrit_ldap_account_pattern: "(&(objectClass=inetorgperson)(uid=${username}))"
+    gerrit_ldap_group_base: "cn=groups,cn=accounts,dc=devops,dc=pl"
+    gerrit_container_java_home: "/usr/lib/jvm/java-1.8.0/"
+    gerrit_sendemail_user: "relay.devops.pl@gmail.com"
+    gerrit_sendemail_from: "relay.devops.pl@gmail.com"
+    gerrit_sendemail_encryption: "ssl"
+    gerrit_sendemail_password: "fVl65Hnram1IFiKJe28e"
+    mysql_root_password: "Password123"
+    mysql_databases:
+    - name: gerrit_reviewdb
+      encoding: utf8
+      collation: utf8_general_ci
+    mysql_users:
+    - name: gerrit
+      host: "%"
+      password: Password123
+      priv: "gerrit_reviewdb.*:ALL"
+  roles:
+    - java-role
+    - mysql-server
+    - gerrit-role
+

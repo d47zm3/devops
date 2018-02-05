@@ -1,0 +1,6 @@
+- name: exploit-dev32
+  box: ubuntu/trusty32
+  ram: 512
+  ip: 192.168.56.110
+  port: 2201
+  cpu: 2

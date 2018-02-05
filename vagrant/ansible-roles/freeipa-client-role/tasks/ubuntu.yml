@@ -1,0 +1,23 @@
+- name: Enable mkhomedir
+  tags:
+    - ubuntu
+    - mkhomedir
+    - freeipaclient
+  become: true
+  lineinfile:
+    dest: /etc/pam.d/common-session
+    line: 'session     required      pam_mkhomedir.so skel=/etc/skel umask=0022'
+
+- name: Enable sssd sudo functionality
+  tags:
+    - ubuntu
+    - sssd
+    - freeipaclient
+  become: true
+  notify:
+    - restart sssd
+    - restart ssh
+  lineinfile:
+    dest: /etc/sssd/sssd.conf
+    regexp: '^services.*'
+    line: 'services = nss, pam, ssh, sudo'

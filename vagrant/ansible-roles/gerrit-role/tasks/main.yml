@@ -1,0 +1,177 @@
+---
+# tasks file for gerrit
+- name: Enable epel
+  become: yes
+  yum: name=epel-release state=present
+
+- name: Install git packages
+  become: yes
+  yum: name=git state=present
+
+- name: Install Java 1.8 on CentOS 7
+  become: yes
+  yum: state=installed name="{{ item }}"
+  with_items:
+    - java-1.8.0-openjdk
+    - java-1.8.0-openjdk-devel
+  when: True
+  tags: java
+
+- include: postgresql.yml
+  when: gerrit_database_type == "postgresql"
+  tags:
+    - gerrit
+    - postgresql
+
+- name: Create Gerrit installation directory
+  file: >
+    path=/opt/gerrit
+    owner=root
+    group=root
+    mode=0755
+    state=directory
+  tags: gerrit
+
+- name: Download Gerrit
+  get_url: >
+    url={{ gerrit_download_server }}/gerrit-{{ gerrit_version }}.war
+    dest=/opt/gerrit/gerrit-{{ gerrit_version }}.war
+    sha256sum={{ gerrit_sha256sum }}
+  tags: gerrit
+
+- name: Create Gerrit symlink
+  file: >
+    src=/opt/gerrit/gerrit-{{ gerrit_version }}.war
+    dest=/opt/gerrit/gerrit.war
+    owner=root
+    group=root
+    state=link
+  tags: gerrit
+
+- name: Create Gerrit group
+  group: >
+    name={{ gerrit_group }}
+    system=yes
+    state=present
+  tags: gerrit
+
+- name: Create Gerrit user
+  user: >
+    name={{ gerrit_user }}
+    comment='Gerrit user'
+    home={{ gerrit_site_dir }}
+    group={{ gerrit_group }}
+    system=yes
+    state=present
+  tags: gerrit
+
+- name: Create Gerrit site directory
+  file: >
+    path={{ gerrit_site_dir }}
+    owner={{ gerrit_user }}
+    group={{ gerrit_group }}
+    mode=0755
+    state=directory
+  tags: gerrit
+
+- name: Create Gerrit etc directory
+  file: >
+    path={{ gerrit_site_dir }}/etc
+    owner={{ gerrit_user }}
+    group={{ gerrit_group }}
+    mode=0755
+    state=directory
+  tags: gerrit
+
+- name: Create Gerrit configuration file
+  template: >
+    src=gerrit.config.j2
+    dest={{ gerrit_site_dir }}/etc/gerrit.config
+    owner={{ gerrit_user }}
+    group={{ gerrit_group }}
+    mode=0644
+  notify: restart gerrit
+  tags: gerrit
+
+- name: Create Gerrit Service File
+  template: >
+    src=gerrit.service.j2
+    dest=/usr/lib/systemd/system/gerrit.service
+    owner=root
+    group=root
+    mode=0644
+
+- name: Create Gerrit secure configuration file
+  template: >
+    src=secure.config.j2
+    dest={{ gerrit_site_dir }}/etc/secure.config
+    owner={{ gerrit_user }}
+    group={{ gerrit_group }}
+    mode=0600
+  notify: restart gerrit
+  tags: gerrit
+
+- name: Set Initialization Options
+  set_fact:
+    gerrit_init_options: >
+      {% for plugin in gerrit_install_plugins %} --install-plugin {{ plugin }} {% endfor %}
+  tags: gerrit
+
+- name: Create Gerrit tmp directory
+  file: >
+    path={{ gerrit_site_dir }}/tmp
+    owner={{ gerrit_user }}
+    group={{ gerrit_group }}
+    mode=0755
+    state=directory
+  tags: gerrit
+
+- name: Save Initialization Options
+  copy: >
+    content="{{ gerrit_init_options }}"
+    dest={{ gerrit_site_dir }}/tmp/init_options
+  register: init_options_log
+  tags: gerrit
+
+- name: Initialize Gerrit
+  become: yes
+  become_user: "{{ gerrit_user }}"
+  become_method: sudo
+  command: >
+    java -jar /opt/gerrit/gerrit.war init
+    --batch
+    --no-auto-start
+    -d {{ gerrit_site_dir }}
+    {{ gerrit_init_options }}
+  register: initialization
+  when: init_options_log.changed
+  tags: gerrit
+
+- name: Reindexing Gerrit
+  become: yes
+  become_user: "{{ gerrit_user }}"
+  become_method: sudo
+  command: java -jar /opt/gerrit/gerrit.war reindex -d {{ gerrit_site_dir }}
+  when: initialization.changed
+  tags: gerrit
+
+- name: Create Gerrit defaults file
+  template: >
+    src=gerritcodereview.j2
+    dest=/etc/default/gerritcodereview
+    owner=root
+    group=root
+    mode=0644
+  notify: restart gerrit
+  tags: gerrit
+
+- name: Create Gerrit init file link
+  file: >
+    src={{ gerrit_site_dir }}/bin/gerrit.sh
+    dest=/etc/init.d/gerrit
+    state=link
+  tags: gerrit
+
+- name: Ensure Gerrit service is started and enabled on boot
+  service: name={{ gerrit_service_name }} state=started enabled=yes
+  tags: gerrit

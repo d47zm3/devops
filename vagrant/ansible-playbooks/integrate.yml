@@ -1,0 +1,5 @@
+- hosts: devops01,devops02
+  become: yes
+  become_method: sudo
+  roles:
+    - integrate-jenkins-gerrit

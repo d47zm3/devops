@@ -1,0 +1,13 @@
+- hosts: ipaclients
+  become: yes
+  become_method: sudo
+  vars:
+    freeipaclient_server: master01.devops.pl
+    freeipaclient_domain: DEVOPS.PL
+    freeipaclient_enroll_user: admin
+    freeipaclient_enroll_pass: Password123
+    freeipaclient_dns_server: 192.168.100.101
+
+  roles:
+     - freeipa-client-role
+

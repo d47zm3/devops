@@ -1,0 +1,219 @@
+- name: Check If Minimum Password Age Is Configured
+  shell: cat /etc/login.defs | egrep -q "PASS_MIN_DAYS.*0"
+  register: pass_min_days_configured
+  failed_when: false
+  check_mode: no
+  changed_when: false
+
+- name: Configure Minimum Password Age
+  replace: dest=/etc/login.defs regexp='PASS_MIN_DAYS.*0' replace='PASS_MIN_DAYS 3' backup=yes
+  when: pass_min_days_configured.rc == 0 
+
+- name: Check If Minimum Password Age Is Configured
+  shell: cat /etc/login.defs | egrep -q "PASS_MAX_DAYS.*99999"
+  register: pass_max_days_configured
+  failed_when: false
+  check_mode: no
+  changed_when: false
+
+- name: Configure Maximum Password Age
+  replace: dest=/etc/login.defs regexp='PASS_MAX_DAYS.*99999' replace='PASS_MAX_DAYS 90' backup=yes
+  when: pass_max_days_configured.rc == 0 
+
+- name: Provision Custom Umask File
+  template: src=umask.sh.j2 dest=/etc/profile.d/umask.sh owner=root group=root mode=0755
+
+- name: Configure /etc/init.d/functions Umask
+  replace: dest=/etc/init.d/functions regexp='umask 022' replace='umask 027' backup=yes
+
+- name: Enable Logging For Failed Login Attempts
+  lineinfile: dest=/etc/login.defs  line='FAILLOG_ENAB yes' backup=yes
+
+- name: Provision Auto Logout Timeout For Session
+  template: src=logout.sh.j2 dest=/etc/profile.d/logout.sh owner=root group=root mode=0755
+
+- name: Configure /etc/bashrc Umask 022
+  replace: dest=/etc/bashrc regexp='umask 022' replace='umask 027' backup=yes
+
+- name: Configure /etc/bashrc Umask 002
+  replace: dest=/etc/bashrc regexp='umask 002' replace='umask 027' backup=yes
+
+- name: Configure /etc/csh.cshrc Umask 022
+  replace: dest=/etc/csh.cshrc regexp='umask 022' replace='umask 027' backup=yes
+
+- name: Configure /etc/csh.cshrc Umask 002
+  replace: dest=/etc/csh.cshrc regexp='umask 002' replace='umask 027' backup=yes
+
+- name: Configure /etc/profile Umask 022
+  replace: dest=/etc/profile regexp='umask 022' replace='umask 027' backup=yes
+
+- name: Configure /etc/profile Umask 002
+  replace: dest=/etc/profile regexp='umask 002' replace='umask 027' backup=yes
+
+- name: Check If Zabbix Group Exists
+  shell: cat /etc/group | egrep -q "zabbix"
+  register: zabbix_group_exists
+  failed_when: false
+  check_mode: no
+  changed_when: false
+
+- name: Check If Nagios Group Exists
+  shell: cat /etc/group | egrep -q "nagios"
+  register: nagios_group_exists
+  failed_when: false
+  check_mode: no
+  changed_when: false
+
+- name: Get Zabbix Group GID
+  shell: cat /etc/group | grep zabbix  | egrep -o "[0-9]*"
+  register: zabbix_group_gid
+  when: zabbix_group_exists.rc == 0
+
+- name: Get Nagios Group GID
+  shell: cat /etc/group | grep nagios  | egrep -o "[0-9]*"
+  register: nagios_group_gid
+  when: nagios_group_exists.rc == 0
+
+- debug: var=zabbix_group_gid
+
+- name: Harden /proc By Hiding PIDs For Users (With Zabbix Exception)
+  command: "mount -o remount,rw,hidepid=2,gid={{zabbix_group_gid.stdout}} /proc"
+  when: zabbix_group_exists.rc == 0
+
+- name: Add Entry To /etc/fstab (With Zabbix Exception)
+  lineinfile: dest=/etc/fstab  line="proc /proc proc defaults,hidepid=2,gid={{zabbix_group_gid.stdout}} 0 0" backup=yes
+  when: zabbix_group_exists.rc == 0
+
+- name: Harden /proc By Hiding PIDs For Users (With Nagios Exception)
+  command: "mount -o remount,rw,hidepid=2,gid={{nagios_group_gid.stdout}} /proc"
+  when: nagios_group_exists.rc == 0
+
+- name: Add Entry To /etc/fstab (With Nagios Exception)
+  lineinfile: dest=/etc/fstab  line="proc /proc proc defaults,hidepid=2,gid={{nagios_group_gid.stdout}} 0 0" backup=yes
+  when: nagios_group_exists.rc == 0
+
+- name: Harden /proc By Hiding PIDs For Users (No Exceptions)
+  command: "mount -o remount,rw,hidepid=2 /proc"
+  when: (zabbix_group_exists.rc == 1 and nagios_group_exists.rc == 1)
+
+- name: Add Entry To /etc/fstab (No Exception)
+  lineinfile: dest=/etc/fstab  line="proc /proc proc defaults,hidepid=2 0 0" backup=yes
+  when: (zabbix_group_exists.rc == 1 and nagios_group_exists.rc == 1)
+
+- name: Blacklist Unnecessary Modules
+  template: src=blacklist.conf.j2 dest=/etc/modprobe.d/blacklist.conf owner=root group=root mode=0755
+
+- name: Blacklist Cramfs
+  template: src=blacklist-cramfs.conf.j2 dest=/etc/modprobe.d/blacklist-cramfs.conf owner=root group=root mode=0755
+
+- name: Blacklist Squashfs
+  template: src=blacklist-squashfs.conf.j2 dest=/etc/modprobe.d/blacklist-squashfs.conf owner=root group=root mode=0755
+
+- name: Blacklist Udf
+  template: src=blacklist-udf.conf.j2 dest=/etc/modprobe.d/blacklist-udf.conf owner=root group=root mode=0755
+
+- name: Blacklist USB Storage
+  template: src=blacklist-usb.conf.j2 dest=/etc/modprobe.d/blacklist-usb.conf owner=root group=root mode=0755
+
+- name: Blacklist Firewire
+  template: src=blacklist-firewire.conf.j2 dest=/etc/modprobe.d/blacklist-firewire.conf owner=root group=root mode=0755
+
+- name: Remove Postfix From Mailname
+  lineinfile: dest=/etc/postfix/main.cf  line='smtpd_banner = $myhostname ESMTP' backup=yes
+
+- name: Harden SSH Config AllowTcpForwarding
+  lineinfile: dest=/etc/ssh/sshd_config  line='AllowTcpForwarding no' backup=yes
+
+- name: Harden SSH Config ClientAliveCountMax
+  lineinfile: dest=/etc/ssh/sshd_config  line='ClientAliveCountMax 2' backup=yes
+
+- name: Harden SSH Config Compression no
+  lineinfile: dest=/etc/ssh/sshd_config  line='Compression no' backup=yes
+
+- name: Harden SSH Config Compression no
+  lineinfile: dest=/etc/ssh/sshd_config  line='Compression no' backup=yes
+
+- name: Harden SSH Config MaxAuthTries 6
+  lineinfile: dest=/etc/ssh/sshd_config  line='MaxAuthTries 1' backup=yes
+
+- name: Harden SSH Config MaxSessions 10
+  lineinfile: dest=/etc/ssh/sshd_config  line='MaxSessions 2' backup=yes
+
+- name: Harden SSH Config PermitRootLogin yes
+  lineinfile: dest=/etc/ssh/sshd_config  line='PermitRootLogin no' backup=yes
+
+- name: Harden SSH Config UseDNS yes
+  lineinfile: dest=/etc/ssh/sshd_config  line='UseDNS no' backup=yes
+
+- name: Harden SSH Config TCPKeepAlive no
+  lineinfile: dest=/etc/ssh/sshd_config  line='TCPKeepAlive no' backup=yes
+
+- name: Harden SSH Config X11Forwarding yes
+  lineinfile: dest=/etc/ssh/sshd_config  line='X11Forwarding no' backup=yes
+
+- name: Harden SSH Config AllowAgentForwarding Yes
+  lineinfile: dest=/etc/ssh/sshd_config  line='AllowAgentForwarding no' backup=yes
+
+- name: Provision Custom Issue With Warning
+  template: src=issue.j2 dest=/etc/issue owner=root group=root mode=0755
+
+- name: Restart SSH
+  service: name=sshd state=restarted
+
+- name: Install Process Accounting Tools
+  yum: name=psacct state=installed
+
+- name: Enable Process Accounting
+  service: name=psacct state=started enabled=yes
+
+- name: Install AIDE File Integrity Tool
+  yum: name=aide state=installed
+
+- name: Configure AIDE for this system
+  command: aide --init && mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz && aide --check && aide --update && rm -f /var/lib/aide/aide.db.gz && mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+
+- debug: msg="Do not forget to add AIDE to crontab!!! aide --check every day"
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='kernel.kptr_restrict=2' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='kernel.sysrq=0' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv4.conf.all.accept_redirects=0' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv4.conf.all.log_martians=1' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv4.conf.all.send_redirects=0' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv4.conf.default.accept_redirects=0' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv4.conf.default.log_martians=1' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv4.tcp_timestamps=0' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv6.conf.all.accept_redirects=0' backup=yes
+
+- name: Set sysctl parameters
+  lineinfile: dest=/etc/sysctl.conf  line='net.ipv6.conf.default.accept_redirects=0' backup=yes
+
+- name: Reload sysctl
+  command: sysctl -p
+
+- name: Install rkhunter Rootkit Checker Tool
+  yum: name=rkhunter state=installed
+
+- name: Configure rkhunter for this system
+  shell: rkhunter --update
+
+- name: Configure rkhunter for this system
+  shell: rkhunter --propupd
+
+- debug: msg="Do not forget to add rkhunter to crontab!!!"

@@ -1,0 +1,13 @@
+[Unit]
+Description=Sonatype Nexus
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/opt/nexus/bin/nexus start
+ExecStop=/opt/nexus/bin/nexus stop
+User=nexus
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

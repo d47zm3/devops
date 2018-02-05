@@ -1,0 +1,3 @@
+- hosts: ansible-test
+  roles:
+    - ansible-role-repo-epel

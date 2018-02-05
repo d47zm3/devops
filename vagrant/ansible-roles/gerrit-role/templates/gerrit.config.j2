@@ -1,0 +1,52 @@
+[gerrit]
+        basePath = git
+        canonicalWebUrl = {{ gerrit_canonical_web_url }}
+[database]
+        type = {{ gerrit_database_type }}
+        database = {{ gerrit_database_db }}
+{% if gerrit_database_type == 'postgresql' or gerrit_database_type == 'mysql' %}
+        hostname = {{ gerrit_database_hostname }}
+        username = {{ gerrit_database_username }}
+{% endif %}
+[index]
+        type = LUCENE
+[auth]
+        type = {{ gerrit_auth_type }}
+{% if gerrit_auth_type in ['LDAP', 'HTTP_LDAP'] %}
+[ldap]
+        server = {{ gerrit_ldap_server }}
+{% if gerrit_ldap_username is defined %}
+        username = {{ gerrit_ldap_username }}
+{% endif %}
+        accountBase = {{ gerrit_ldap_account_base }}
+        accountScope = {{ gerrit_ldap_account_scope }}
+        accountPattern = {{ gerrit_ldap_account_pattern }}
+        accountFullName = {{ gerrit_ldap_account_full_name }}
+        accountEmailAddress = {{ gerrit_ldap_account_email_address }}
+{% if gerrit_ldap_account_ssh_username is defined %}
+        accountSshUserName = {{ gerrit_ldap_account_ssh_username }}
+{% endif %}
+        groupBase = {{ gerrit_ldap_group_base }}
+        groupPattern = {{ gerrit_ldap_group_pattern }}
+        groupMemberPattern = {{ gerrit_ldap_group_member_pattern }}
+        groupScope = {{ gerrit_ldap_group_scope }}
+        groupName = {{ gerrit_ldap_group_name }}
+{% endif %}
+[sendemail]
+        smtpServer = {{ gerrit_sendemail_smtp_server }}
+        smtpUser = {{ gerrit_sendemail_user }}
+{% if gerrit_sendemail_encryption is defined %}
+        smtpEncryption = {{ gerrit_sendemail_encryption }}
+{% endif %}
+        from = {{ gerrit_sendemail_from }}
+[container]
+        user = {{ gerrit_user }}
+        javaHome = {{ gerrit_container_java_home }}
+[sshd]
+        listenAddress = {{ gerrit_sshd_listen_address }}
+[httpd]
+        listenUrl = {{ gerrit_httpd_listen_url }}
+[cache]
+        directory = cache
+[plugins]
+        allowRemoteAdmin = {{ gerrit_plugins_allow_remote_admin }}

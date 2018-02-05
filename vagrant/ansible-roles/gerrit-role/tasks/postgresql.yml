@@ -1,0 +1,48 @@
+---
+# tasks file for gerrit (PostgreSQL specific)
+- name: Install PostgreSQL packages
+  become: yes
+  yum: name="{{ item }}" state=present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - postgresql-server
+    - python-psycopg2
+
+- name: Setup PostgreSQL
+  command: "postgresql-setup initdb"
+  ignore_errors: yes
+
+- name: Copy pg_hba.conf
+  become: yes
+  template: dest=/var/lib/pgsql/data/pg_hba.conf group=postgres owner=postgres src=pg_hba.j2 mode=0600
+
+- name: Start PostgreSQL and enable it
+  become: yes
+  service: name=postgresql state=started enabled=yes
+
+- name: Create Gerrit PostgreSQL database
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_db: >
+    name={{ gerrit_database_db }}
+    encoding='UTF-8'
+    state=present
+  tags:
+    - gerrit
+    - postgresql
+
+- name: Create Gerrit PostgreSQL database user
+  become: yes
+  become_user: postgres
+  become_method: sudo
+  postgresql_user: >
+    name={{ gerrit_database_username }}
+    db={{ gerrit_database_db }}
+    password={{ gerrit_database_password }}
+    priv=ALL
+    state=present
+  tags:
+    - gerrit
+    - postgresql

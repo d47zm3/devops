@@ -1,0 +1,13 @@
+---
+# handlers file for gerrit
+
+- name: restart gerrit
+  service: name={{ gerrit_service_name }} state=restarted
+  tags: gerrit
+
+- name: reindex gerrit
+  become: yes
+  become_user: "{{ gerrit_user }}"
+  become_method: sudo
+  command: java -jar /opt/gerrit/gerrit.war reindex -d {{ gerrit_site_dir }}
+  tags: gerrit

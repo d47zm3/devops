@@ -1,0 +1,5 @@
+- hosts: nexus
+  become: yes
+  become_method: sudo
+  roles:
+    - nexus-role

@@ -1,0 +1,11 @@
+- hosts: jenkins
+  become: yes
+  become_method: sudo
+  vars:
+    - jenkins_hostname: jenkins.devops.pl
+    - java_packages: java-1.8.0-openjdk
+    - jenkins_plugins: ['ldap','gerrit-trigger','git','maven-plugin']
+  roles:
+    - java-role
+    - jenkins-role
+    - restore-jenkins-role

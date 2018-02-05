@@ -1,0 +1,6 @@
+- name: Install Maven Binaries
+  yum: name=maven state=installed
+
+- name: Provision Maven Settings File
+  template: src=settings.xml.j2 dest=/etc/maven/settings.xml owner=root group=root mode=0644
+

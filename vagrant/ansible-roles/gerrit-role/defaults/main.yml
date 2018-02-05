@@ -1,0 +1,33 @@
+---
+# defaults file for gerrit
+
+gerrit_download_server: https://gerrit-releases.storage.googleapis.com
+gerrit_version: 2.11.5
+gerrit_sha256sum: 2b252f2e2c65c4fe20eaac8f060f8fce89579d3fcdfb07b369e669578b77eeda
+gerrit_install_plugins: []
+
+gerrit_auth_type: 'OPENID'
+gerrit_canonical_web_url: 'http://localhost:8080/'
+gerrit_container_java_home: /usr/lib/jvm/java-8-openjdk-amd64/jre
+gerrit_database_type: 'h2'
+gerrit_database_db: 'db/ReviewDB'
+gerrit_database_username: ''
+gerrit_database_password: ''
+gerrit_database_hostname: 'localhost'
+gerrit_httpd_listen_url: 'http://*:8080/'
+gerrit_sendemail_smtp_server: 'localhost'
+gerrit_sshd_listen_address: '*:29418'
+
+gerrit_ldap_server: ldap://ldap.example.com
+gerrit_ldap_account_base: ou=people,dc=example,dc=com
+gerrit_ldap_account_scope: subtree
+gerrit_ldap_account_pattern: (uid=${username})
+gerrit_ldap_account_full_name: displayName
+gerrit_ldap_account_email_address: mail
+gerrit_ldap_group_base: ou=groups,dc=example,dc=com
+gerrit_ldap_group_scope: subtree
+gerrit_ldap_group_pattern: (cn=${groupname})
+gerrit_ldap_group_member_pattern: (|(memberUid=${username})(gidNumber=${gidNumber}))
+gerrit_ldap_group_name: cn
+
+gerrit_plugins_allow_remote_admin: false

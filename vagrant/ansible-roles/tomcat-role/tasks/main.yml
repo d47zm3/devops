@@ -1,0 +1,16 @@
+- name: Install Tomcat Binaries
+  yum: name=tomcat state=installed
+
+- name: Enable Startup at Boot and Start Service
+  service: name=tomcat state=restarted enabled=yes
+
+- name: Provision Tomcat Users File
+  template: src=tomcat-users.xml.j2 dest=/etc/tomcat/tomcat-users.xml owner=root group=root
+
+- name: Provision Java Security File
+  template: src=java.security.j2 dest=/usr/lib/jvm/jre-1.8.0-openjdk/lib/security/java.security owner=root group=root
+
+- name: Enable autostart of Tomcat
+  service: name=tomcat enabled=yes state=started
+ 
+

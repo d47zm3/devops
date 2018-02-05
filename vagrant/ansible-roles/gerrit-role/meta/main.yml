@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: Kevin Brebanov and Nigel Babu
+  description: Installs Gerrit
+  company: Red Hat
+  license: BSD
+  min_ansible_version: 1.4
+  platforms:
+  - name: CentOS
+    versions:
+    - 5
+    - 7
+  categories:
+  - development
