@@ -1,0 +1,17 @@
+# Dockerfile to start up Centos 6 with OpenSSH server
+FROM centos:centos6
+MAINTAINER d47zm3 <d47zm3@gmail.com>
+
+RUN cd ~
+
+RUN yum -y update
+RUN yum -y upgrade
+RUN yum -y install openssh-server
+RUN service sshd start
+RUN chkconfig sshd on
+RUN mkdir /root/.ssh
+RUN chmod 700 /root/.ssh
+ADD ./id_rsa.pub /root/.ssh/authorized_keys
+RUN chmod 400 /root/.ssh/authorized_keys
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]

@@ -1,0 +1,5 @@
+---
+- hosts: "{{ hosts }}"
+  roles:
+  - ansible-role-epel-repo
+  - ansible-role-duplicity

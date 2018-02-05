@@ -1,0 +1,13 @@
+---
+- hosts: "{{ hosts }}"
+  roles:
+  - ansible-role-mariadb
+  vars:
+    - mariadb_databases:
+        - "Testing"
+    - mariadb_users:
+        - name: Tester
+          password: Password
+          priv: '*.*:ALL,GRANT'
+    - mariadb_root_password: 'Password'
+    - mariadb_bind_address: '127.0.0.1'

@@ -1,0 +1,4 @@
+---
+- hosts: "{{ hosts }}"
+  roles:
+  - ansible-role-jdk

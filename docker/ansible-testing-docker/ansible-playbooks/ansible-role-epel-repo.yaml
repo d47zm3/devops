@@ -1,0 +1,7 @@
+---
+- hosts: "{{ hosts }}"
+  roles:
+  - ansible-role-epel-repo
+  environment:
+    http_proxy: "{{ proxy }}"
+    https_proxy: "{{ proxy }}"
