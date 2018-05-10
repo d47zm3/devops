@@ -1,6 +1,0 @@
-version: '2'
-services:
-  web:
-    image: d47zm3/docker-image:TAG_VERSION
-    ports:
-     - "80:8765"
