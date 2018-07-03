@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# source: https://www.reddit.com/r/linuxadmin/comments/8vldjj/curl_cheatsh/
+
+/usr/bin/curl cht.sh/$(echo -- "$@"|$(which gsed) -e 's/[ ]/\n/g2; s/[ ]/\//g; s/\n/+/g')
