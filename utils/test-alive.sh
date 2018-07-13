@@ -3,6 +3,12 @@
 url="${1}"
 url_file=$( echo "${1}" | sed "s#/#-#g" )
 
+if [[ -z "${url}" ]]
+then
+  echo "Usage: ${0} <url to check>"
+  exit 1
+fi
+
 touch ${url_file}.log
 > ${url_file}.log
 
