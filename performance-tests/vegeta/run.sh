@@ -1,2 +1,10 @@
-vegeta attack -duration=3m -rate 1000 -workers 100 -targets=targets.txt
-echo "GET https://google.com/" | vegeta attack -duration=3m -rate 1000 | tee results.bin | vegeta report
+#!/bin/bash
+
+url=${1}
+
+if [[ -z ${url} ]]
+then
+  echo "usage: ${0} <url to test>"
+  exit 1
+fi
+echo "GET ${url}" | vegeta attack -duration=10s -rate 20 | tee results.bin | vegeta report
