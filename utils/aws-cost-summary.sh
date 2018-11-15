@@ -1,0 +1,1 @@
+aws ce get-cost-and-usage --time-period Start=$(date -u -d "$TODAY" '+%Y-%m-01'),End=$(date -u +"%Y-%m-%d" --date="+1 day") --granularity MONTHLY --metrics UnblendedCost --output text | tail -n1 | awk ' { print $2 "$" } '
