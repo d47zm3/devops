@@ -3,9 +3,9 @@
 url="${1}"
 url_file=$( echo "${1}" | sed -e "s/http[s][:\/\/]//g" | sed -e "s#/#-#g" | sed -e "s/^-*//g" | sed -e "s/-*$//g" )
 
-echo $url_file
-touch ${url_file}.log
-> ${url_file}.log
+#echo $url_file
+#touch ${url_file}.log
+#> ${url_file}.log
 
 while [[ 1 -eq 1 ]]
 do
