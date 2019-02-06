@@ -1,0 +1,137 @@
+.header {
+  $root: &;
+
+  @include elevation("raised");
+
+  transition: background-color 400ms ease-in-out;
+  background-color: $color-white;
+  position: relative; // Fallback
+  position: sticky;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  @at-root .header-fixed & {
+    @include elevation("sticky");
+  }
+
+  @include respond-to('small-max') {
+    background-color: get-theme-color($currentTheme, "header-background-main");
+
+    @at-root {
+      @each $section, $color in $category-map {
+        .section-#{$section} {
+          #{$root} {
+            background-color: get-theme-color($currentTheme, "header-background-" + $color);
+          }
+
+          #{$root}__link {
+            fill: get-theme-color($currentTheme, "header-color-" + $color);
+          }
+        }
+      }
+    }
+  }
+
+
+
+  &__inner {
+    background-color: transparent;
+    position: relative;
+    z-index: 2;
+  }
+
+  &__top {
+    @include respond-to("small") {
+      border-top: size(1) solid get-theme-color($currentTheme, "main");
+    }
+  }
+
+  &__elements {
+    $top: &;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    padding: size(1) size(2);
+
+    @include respond-to("small") {
+      transition: border-top-color 250ms ease-in-out;
+      padding-top: size(4);
+      padding-bottom: size(5);
+
+      @at-root {
+        @each $section, $color in $category-map {
+          .section-#{$section} {
+            #{$top} {
+              border-top-color: get-theme-color($currentTheme, "header-background-" + $color);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__element {
+    &--logo {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    &--mobile {
+      @include respond-to("medium") {
+        display: none;
+      }
+    }
+  }
+
+  &__link {
+    fill: $color-gray-dark;
+    display: block;
+    padding: 12px;
+
+    @include respond-to('small-max') {
+      fill: get-theme-color($currentTheme, "header-color-main");
+    }
+  }
+
+  &__user,
+  &__burger {
+    width: 24px;
+    height: 24px;
+    fill: inherit;
+    pointer-events: none;
+  }
+
+  &__logo {
+    margin: 0 auto;
+
+    @include respond-to("small") {
+      display: none;
+    }
+
+    &--desktop {
+      display: none;
+
+      @include respond-to('small') {
+        display: block;
+      }
+    }
+  }
+
+  &__accordion {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+  }
+
+  &__actions {
+    position: absolute;
+    display: flex;
+    &--right {
+      right: size(2);
+    }
+  }
+}

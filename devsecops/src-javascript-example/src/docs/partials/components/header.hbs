@@ -1,0 +1,102 @@
+<div class="over-header">
+  {{> components/top-bar }}
+</div>
+<header class="header header--on-top js-header">
+  <div class="header__inner">
+    <div class="header__top">
+
+      <div class="header__elements">
+
+      <div class="header__actions">
+        <div class="header__element header__element--mobile">
+          <a href="#" class="header__link js-side-nav-trigger">
+            <span class="sr-only">Open menu</span>
+            <svg class="icon icon--block header__burger">
+              <use xlink:href="#menu"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+        <div class="header__element header__element--logo">
+          <a href="/" class="header__link">
+            <div class="header__logo">
+              <svg class="icon logo logo--mobile">
+                <use xlink:href="#logo-mobile-vf"></use>
+              </svg>
+            </div>
+
+            <div class="header__logo header__logo--desktop">
+              <svg class="icon logo logo--large logo--dark">
+                <use xlink:href="#logo-vf"></use>
+              </svg>
+            </div>
+          </a>
+        </div>
+
+        <div class="header__actions header__actions--right">
+          <div class="header__element header__element--mobile" data-accordion-trigger="login-accordion">
+            <a href="#" class="header__link">
+              <span class="sr-only">account</span>
+              <svg class="icon icon--block header__user">
+                <use xlink:href="#account-outline"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header_navigation">
+      <div class="progress progress--slim progress--nav" aria-hidden="true">
+        <div class="progress__completed js-progress-indicator" data-progress-nav="true"></div>
+      </div>
+      {{> components/menu }}
+    </div>
+    <div class="header__accordion">
+      <div class="accordion js-accordion" data-accordion-group="header-mobile" id="login-accordion">
+        <div class="accordion__content js-accordion-content">
+          <div class="login-box">
+
+            <div class="login-box__error js-login-error-container" hidden="">
+              <!-- if tulo_error=invalid_username_or_password / hidden on default-->
+              Fel e-postadress eller lösenord
+            </div>
+            <form method="POST" action="/login/">
+
+              <div class="input">
+                <div class="input__inner">
+                  <label class="input__label" for="login-accordion-email">E-postadress</label>
+                  <input class="input__field" id="login-accordion-email" name="email" type="email">
+                </div>
+              </div>
+
+              <div class="input">
+                <div class="input__inner">
+                  <label class="input__label" for="login-accordion-password">Lösenord</label>
+                  <input class="input__field" id="login-accordion-password" name="password" type="password" required>
+                </div>
+              </div>
+
+              <div class="checkbox">
+                <input type="checkbox" class="checkbox__input" value="remember-me" name="rememberMe"
+                       id="login-accordion-rememberme" checked="checked">
+                <label for="login-accordion-rememberme" class="checkbox__label">Håll mig inloggad</label>
+              </div>
+
+              <button class="button button--primary button--wide mt-2">
+                <span class="button__inner">
+                  <span class="button__text">Logga in</span>
+                </span>
+              </button>
+              <div class="input__hint text-center mt-1">
+                <a href="#" class="login-box__password-link">Glömt lösenord</a>
+              </div>
+              <input type="hidden" class="tulo-returnurl" name="forward_url" value="/">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{{> components/side-nav }}

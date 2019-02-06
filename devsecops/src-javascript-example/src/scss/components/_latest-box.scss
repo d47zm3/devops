@@ -1,0 +1,57 @@
+.latest-box {
+  &__header {
+    color: $color-white;
+    padding: size(1) size(2);
+    background-color: get-theme-color($currentTheme, "main");
+  }
+
+  &__title {
+    @include font("small");
+    font-weight: 600;
+  }
+
+  &__title-url {
+    color: inherit;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  &__footer {
+    padding: size(1);
+    height: size(4.5);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid $color-gray-pale;
+  }
+
+  &__more {
+    @include font("caption");
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-gray-warm;
+    fill: $color-gray-warm;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: $color-gray-dark;
+      fill: $color-gray-dark;
+    }
+  }
+
+  // custom for latest-box
+  .article-teaser__title {
+    font-size: 13px;
+  }
+  .article-teaser__date {
+    text-transform: uppercase;
+  }
+}

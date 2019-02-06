@@ -1,0 +1,290 @@
+.footer {
+  $root: &;
+
+  @include font("small");
+
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background-color: get-theme-color($currentTheme, 'footer-background');
+  color: get-theme-color($currentTheme, 'footer-text');
+  min-height: size(76);
+
+  @include respond-to('small-max') {
+    // Important to overcome script
+    max-height: none !important;
+  }
+
+  a {
+    color: get-theme-color($currentTheme, "footer-link");
+    text-decoration: none;
+  }
+
+  .button {
+    color: $color-white;
+
+    &__inner {
+      background-color: get-theme-color($currentTheme, "footer-button");
+    }
+  }
+
+  &__outer {
+    @include respond-to('small') {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+      overflow: hidden;
+    }
+  }
+
+  &__content {
+    @include respond-to('small') {
+      position: fixed;
+      z-index: -1;
+      left: 0;
+      bottom: 0;
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  &__inner {
+    display: block;
+    width: 100%;
+
+    @include respond-to('small') {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      grid-template-areas:
+        "contact about advert subscription"
+        "contact order services app"
+        "tip tip tip tip";
+    }
+  }
+
+  &__header {
+    padding-top: size(3);
+    margin-bottom: size(3);
+
+    @include respond-to('small') {
+      padding: size(3) 0;
+      margin-bottom: size(4);
+      border-bottom: 1px solid $color-cool-grey;
+    }
+  }
+
+  &__header-inner {
+    @include respond-to('small') {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__contact,
+  &__tip,
+  &__section {
+    font-weight: bold;
+
+    @include respond-to('small-max') {
+      padding-left: size(2);
+      padding-right: size(2);
+    }
+  }
+
+  &__contact {
+    margin-bottom: size(3);
+
+    @include respond-to('small') {
+      grid-area: contact;
+    }
+  }
+
+  &__tip {
+    @include respond-to('small') {
+      grid-area: tip;
+      margin-top: size(5);
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+
+  &__tip-element {
+    & + & {
+      margin-top: size(1);
+    }
+
+    @include respond-to('small') {
+      margin-left: size(4);
+
+      & + & {
+        margin-top: 0;
+        margin-left: size(3);
+      }
+    }
+  }
+
+  &__about {
+    @include respond-to('small') {
+      grid-area: about;
+    }
+  }
+
+  &__advert {
+    @include respond-to('small') {
+      grid-area: advert;
+    }
+  }
+
+  &__about,
+  &__advert {
+    @include respond-to('small') {
+      margin-bottom: size(7);
+    }
+  }
+
+  &__order {
+    @include respond-to('small') {
+      grid-area: order;
+    }
+  }
+
+  &__services {
+    @include respond-to('small') {
+      grid-area: services;
+    }
+  }
+
+  &__subscription {
+    display: none;
+
+    @include respond-to('small') {
+      grid-area: subscription;
+      display: block;
+      padding-top: size(5);
+    }
+  }
+
+  &__app {
+    @include respond-to('small') {
+      grid-area: app;
+    }
+  }
+
+  &__footer {
+    padding-bottom: size(3);
+    font-weight: normal;
+
+    @include respond-to('small') {
+      border-top: 1px solid $color-cool-grey;
+      padding: size(2);
+      margin-top: size(4);
+    }
+  }
+
+  &__copyrights {
+    margin-bottom: size(2);
+
+    @include respond-to('small') {
+      margin-bottom: 0;
+    }
+  }
+
+  &__footer-inner {
+    @include font("caption");
+
+    color: get-theme-color($currentTheme, 'footer-text');
+
+    @include respond-to('small') {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__footer-item {
+    display: block;
+    text-align: center;
+
+    @include respond-to('small') {
+      position: relative;
+      display: inline-block;
+      text-align: left;
+
+      & + & {
+        &:before {
+          display: inline-block;
+          content: '|';
+          margin: 0 size(1);
+        }
+      }
+
+      a {
+        color: get-theme-color($currentTheme, 'footer-text');
+      }
+    }
+  }
+
+  &__section {
+    @include respond-to('small-max') {
+      border-top: 1px solid $color-cool-grey;
+      margin-top: size(2);
+      padding-top: size(2);
+    }
+  }
+
+  &__logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: size(3);
+
+    @include respond-to('small') {
+      display: block;
+      margin: 0;
+    }
+  }
+
+  &__list {
+    a {
+      color: get-theme-color($currentTheme, 'footer-text');
+
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+
+    @include respond-to('small') {
+      .clear-list__item + .clear-list__item {
+        margin-top: 0;
+      }
+    }
+  }
+
+  &__section-title {
+    @include font("h4");
+
+    font-weight: normal;
+    margin-bottom: size(2);
+
+    @include respond-to("small") {
+      margin-bottom: size(3);
+    }
+
+    &--strong {
+      @include font("h3");
+
+      font-weight: normal;
+
+      @include respond-to("small") {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

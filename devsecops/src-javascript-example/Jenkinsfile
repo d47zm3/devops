@@ -1,0 +1,153 @@
+repository = "git@github.com:nwtse/components.git"
+repository_short = "components"
+chart_repository = "git@github.com:nwtse/gcp-charts.git"
+chart_path = "gcp-charts/components"
+image_name="components"
+release_name = "components"
+cloudfront_distribution_id = "E2BZ85061T5H4B" /* CloudFront ID to invalidate, optional */
+npm_audit="false"
+chart_dir = "gcp-charts"
+branch = "${env.BRANCH_NAME}"
+cdn_bucket = "nwt-cdn-production-bucket" /* Google Cloud Backend Bucket for CDN, optional */
+cdn_url_map = "cdn-production-forward" /* Google Cloud URL Map to invalidate */
+
+if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME ==~ /^\d+\.\d+\.\d+$/ ) {
+    env.NODE_NAME = 'docker-production'
+    image_repository = "eu.gcr.io/nwt-web"
+    gcr_credentials = "gcr:nwt-web"
+    deployment_name = "production-components"
+    zap_scan_endpoint = "https://components.gcp.stp.nwt.se"
+
+} else {
+    env.NODE_NAME = 'docker-stage'
+    image_repository = "eu.gcr.io/nwt-stage"
+    gcr_credentials = "gcr:nwt-stage"
+    deployment_name = "stage-components"
+    zap_scan_endpoint = "https://components.stage.gcp.stp.nwt.se"
+}
+
+
+node("${env.NODE_NAME}") {
+
+  properties([disableConcurrentBuilds()])
+
+  try {
+      docker.withRegistry('https://eu.gcr.io', "$gcr_credentials") {
+          checkout scm
+          sh "git rev-parse HEAD > .git/commit-id"
+          def commit_id = readFile('.git/commit-id').trim()
+
+          println "REPOSITORY: ${repository}"
+          println "BRANCH: ${branch}"
+          println "BUILDING FROM COMMIT ${commit_id}..."
+          println "NODE TO BUILD: ${env.NODE_NAME}"
+
+          notify("Pipeline Started","#FFFF00")
+          stage("owasp dependency check") {
+            timeout(time: 5, unit: 'MINUTES') {
+                dependencyCheckAnalyzer datadir: "${repository_short}", isFailOnErrorDisabled: false, hintsFile: '', includeCsvReports: true, includeHtmlReports: true, includeJsonReports: false, isAutoupdateDisabled: false, outdir: '', scanpath: '', skipOnScmChange: false, skipOnUpstreamChange: false, suppressionFile: '', zipExtensions: ''
+                dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '85', pattern: '', unHealthy: '0', shouldDetectModules: true
+                archiveArtifacts allowEmptyArchive: true, artifacts: '**/dependency-check-report.xml', onlyIfSuccessful: true
+                archiveArtifacts allowEmptyArchive: true, artifacts: '**/dependency-check-report.html', onlyIfSuccessful: true
+                archiveArtifacts allowEmptyArchive: true, artifacts: '**/dependency-check-report.csv', onlyIfSuccessful: true
+                vulnerable=sh(returnStdout: true, script: """ egrep -ihRc "NSP-" dependency-check-report.html | xargs || true """).trim()
+            }
+
+            if (vulnerable != "0" && vulnerable != "") {
+              slackSend color: 'danger', message: "Found ${vulnerable} vulnerable components during build '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})!"
+            }
+          }
+
+          stage("build") {
+            app = docker.build "${image_repository}/${image_name}:${branch}-${commit_id}"
+          }
+
+          stage("image scan") {
+            aquaMicroscanner imageName: "${image_repository}/${image_name}:${branch}-${commit_id}", notCompliesCmd: '', onDisallowed: 'fail', outputFormat: 'html'
+          }
+
+          if (npm_audit == "true") {
+            stage("npm audit") {
+                docker.build "${image_repository}/${image_name}:owasp","--no-cache -f ./Dockerfile.owasp ./"
+                audit_result=sh(returnStdout: true, script: """docker run --rm ${image_repository}/${image_name}:owasp npm audit || true""")
+                audit_result=sh(returnStdout: true, script: """docker run --rm ${image_repository}/${image_name}:owasp npm audit | egrep \"found|require manual\" | tr '\r\n' ', ' | xargs || true""").trim()
+                slackSend color: 'danger', message: "NPM AUDIT (${env.BUILD_URL}): ${audit_result}"
+            }
+          }
+
+          
+
+
+          if (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME ==~ /^\d+\.\d+\.\d+$/ ) {
+
+            stage("publish") {
+                app.push "${branch}-${commit_id}"
+                app.push "${branch}-latest"
+            }
+
+            stage("deploy") {
+                dir(chart_dir) {
+                    git url: "${chart_repository}", credentialsId: 'github-ssh-key', poll: false, branch: "master"
+                }
+                // deploy on production only manually from tags, not master branch
+                println "DEPLOYING INSIDE: ${env.NODE_NAME}"
+                sh "helm upgrade ${release_name} ${chart_path} --reuse-values --set image.tag=${branch}-${commit_id} --timeout 180 --wait"
+                sh "kubectl rollout status deployment ${deployment_name}"
+            }
+
+            notify("Deploy Finished","#00FF00")
+          }
+
+
+          if (cloudfront_distribution_id != "" && (env.BRANCH_NAME ==~ /^\d+\.\d+\.\d+$/)) {
+            stage("cloudfront invalidate") {
+              withCredentials([[
+                  $class: 'AmazonWebServicesCredentialsBinding',
+                  credentialsId: 'aws-cloudfront-invalidate',
+                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+              ]]) {
+
+                cfInvalidate(distribution:"${cloudfront_distribution_id}", paths:['/*'], waitForCompletion: false)
+              }
+            }
+          }
+
+          if ( env.BRANCH_NAME ==~ /^\d+\.\d+\.\d+$/ ) {
+            stage("sync to cdn bucket") {
+              sh "docker run --rm -id --name ${repository_short}-source ${image_repository}/${image_name}:${branch}-${commit_id} bash -c 'mkdir /source && cp -r /usr/share/nginx/html/* /source/ && sleep 60'"
+              sh "docker cp ${repository_short}-source:/source ."
+              sh "gsutil -m rsync -d -r source/ gs://${cdn_bucket}/${repository_short}/"
+              sh "gsutil -m acl set -R public-read gs://${cdn_bucket}/"
+            }
+
+            stage("gcloud invalidate cache") {
+              sh "gcloud compute url-maps invalidate-cdn-cache ${cdn_url_map} --path '/${repository_short}/*' --async"
+            }
+          }
+
+
+          if ( zap_scan_endpoint != "" && (env.BRANCH_NAME == 'develop' || env.BRANCH_NAME ==~ /^\d+\.\d+\.\d+$/ )) {
+            stage("zap proxy scan") {
+                build job: 'generic-zap-scan', parameters: [[$class: 'StringParameterValue', name: 'target', value: "${zap_scan_endpoint}" ]]
+            }
+          }
+
+          notify("Pipeline Successful","#00FF00")
+          cleanup_images()
+      }
+  } catch (e) {
+      currentBuild.result = "FAILED"
+      notify("Pipeline Failed","#FF0000")
+      throw e
+  }
+}
+
+def notify(status, color) {
+  slackSend (color: "${color}", message: "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+}
+
+def cleanup_images()
+{
+  sh "sleep 5; docker images ${image_repository}/${image_name} -q | xargs -r docker rmi -f || true"
+}

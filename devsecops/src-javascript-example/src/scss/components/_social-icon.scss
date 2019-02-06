@@ -1,0 +1,61 @@
+@mixin social-icon-variant($root, $name, $color) {
+  &--#{$name} {
+    @include respond-to('small-max') {
+      background-color: $color;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: darken($color, 10);
+      }
+    }
+
+    @include respond-to('small') {
+      fill: $color;
+
+      &:hover,
+      &:focus,
+      &:active {
+        fill: darken($color, 10);
+      }
+    }
+  }
+
+  &--invert#{$root}--#{$name} {
+    @include respond-to('small') {
+      fill: $color-white;
+      background-color: $color;
+
+      &:hover,
+      &:focus,
+      &:active {
+        fill: $color;
+        background-color: $color-white;
+      }
+    }
+  }
+}
+
+.social-icon {
+  $root: &;
+
+  transition: background-color 250ms ease-in-out, fill 250ms ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: size(1.5);
+  fill: $color-white;
+
+  &__icon {
+    fill: inherit;
+    display: block;
+    width: size(3);
+    height: size(3);
+  }
+
+  @include social-icon-variant($root, "facebook", $color-facebook);
+  @include social-icon-variant($root, "twitter", $color-twitter);
+  @include social-icon-variant($root, "linked-in", $color-linked-in);
+  @include social-icon-variant($root, "instagram", $color-instagram);
+  @include social-icon-variant($root, "rss", $color-rss);
+}

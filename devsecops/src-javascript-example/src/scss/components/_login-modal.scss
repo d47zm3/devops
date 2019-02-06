@@ -1,0 +1,26 @@
+.login-modal {
+  @include elevation("popup");
+  width: calc(100% - #{size(4)});
+  margin: 0 auto;
+  margin-top: 10%;
+  background: $color-white;
+  padding-bottom: size(9);
+
+  @include respond-to('small') {
+    max-width: 890px;
+  }
+
+  &__close {
+    text-align: right;
+    .button {
+      padding: 0;
+      margin: size(2);
+    }
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,30 @@
+.accordion {
+  @include elevation("sticky");
+
+  transition: max-height 300ms ease-in-out, opacity 200ms, visibility 0ms 300ms;
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  background-color: $color-white;
+
+  &[hidden] {
+    display: block;
+  }
+
+  &--animating {
+    transition: max-height 300ms ease-in-out, opacity 200ms;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &--opened {
+    max-height: none;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &__content {
+    padding: size(3) size(2);
+  }
+}

@@ -1,0 +1,216 @@
+/* Override for WP Froms lite CSS */
+
+$button-color: get-theme-color($currentTheme, "button-primary");
+$button-color-secondary: get-theme-color($currentTheme, "button-secondary");
+$tick-svg: '<svg height="24" fill="#{$color-white}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">'+'<path d="M0 0h24v24H0z" fill="none"/>'+'<path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>'+'</svg>';
+$tick-url: svg-url($tick-svg);
+
+.site-content {
+  div.wpforms-container-full .wpforms-form {
+    $root: &;
+    .wpforms-field-label {
+      font-weight: 400;
+    }
+    .wpforms-field-textarea,
+    .wpforms-field-radio,
+    .wpforms-field-checkbox,
+    .wpforms-field-select {
+      .wpforms-field-label {
+        margin-bottom: size(2);
+      }
+    } // INPUTS
+    input[type=text],
+    input[type=email],
+    input[type=number] {
+      transition: border-bottom-color 300ms ease-in-out;
+      display: block;
+      width: 100%;
+      padding: size(1) 0;
+      min-height: size(5);
+      background-color: transparent;
+      border-radius: 0;
+      color: $color-dark-grey;
+      border: 0;
+      border-bottom: 1px solid $color-gray-dark;
+      &:hover {
+        border-bottom: 1px solid $button-color-secondary;
+      }
+      &:active,
+      &:focus {
+        outline: none;
+        border-color: $button-color-secondary;
+      }
+    }
+    .wpforms-field-sublabel {
+      @include font("caption");
+      color: $color-cool-grey-two;
+    } // CHECKBOX
+    input[type=checkbox] {
+      position: absolute;
+      z-index: -100;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      overflow: hidden;
+      &:checked+label.wpforms-field-label-inline {
+        &::before {
+          background-color: rgba(get-theme-color($currentTheme, "main"), 1);
+          border-color: rgba(get-theme-color($currentTheme, "main"), 0);
+        }
+        &::after {
+          opacity: 1;
+        }
+      }
+      &[disabled]+label.wpforms-field-label-inline {
+        &::before {
+          border-color: $color-pale-grey;
+        }
+      }
+      &[disabled]:checked+label.wpforms-field-label-inline {
+        &::before {
+          background-color: get-theme-color($currentTheme, "shade");
+        }
+      }
+    }
+    .wpforms-field-checkbox label.wpforms-field-label-inline {
+      @include font('caption');
+      position: relative;
+      display: block;
+      padding-left: size(3);
+      margin-bottom: size(1);
+      &:hover {
+        cursor: pointer;
+      }
+      &::before,
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: size(2);
+        height: size(2);
+      }
+      &::before {
+        transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out;
+        z-index: 1;
+        background-color: rgba(get-theme-color($currentTheme, "main"), 0);
+        border: 1px solid $color-gray-dark;
+      }
+      &::after {
+        transition: opacity 250ms ease-in-out;
+        z-index: 2;
+        opacity: 0;
+        background: no-repeat center/18px $tick-url;
+      }
+    } // RADIO
+    input[type=radio] {
+      position: absolute;
+      z-index: -100;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      overflow: hidden;
+      &:checked+label.wpforms-field-label-inline {
+        &::before {
+          border-color: get-theme-color($currentTheme, "main");
+        }
+        &::after {
+          transform: scale(0.5);
+        }
+      }
+      &[disabled]+label.wpforms-field-label-inline {
+        &::before {
+          border-color: $color-gray-pale;
+        }
+        &::after {
+          background-color: $color-gray-pale;
+        }
+      }
+    }
+    .wpforms-field-radio label.wpforms-field-label-inline {
+      @include font('caption');
+      position: relative;
+      display: block;
+      padding-left: size(3);
+      margin-bottom: size(1);
+      &:hover {
+        cursor: pointer;
+      }
+      &::before,
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: size(2);
+        height: size(2);
+      }
+      &::before {
+        transition: border-color 250ms ease-in-out;
+        z-index: 1;
+        background: transparent;
+        border-radius: 100%;
+        border: 1px solid $color-gray-dark;
+      }
+      &::after {
+        transition: transform 250ms ease-in-out, background-color 250ms ease-in-out;
+        z-index: 1;
+        border-radius: 100%;
+        background-color: get-theme-color($currentTheme, "main");
+        transform: scale(0);
+      }
+    } // TEXTAREA
+    textarea {
+      transition: border-color 300ms ease-in-out;
+      padding: size(1);
+      border: 1px solid $color-cool-grey-two;
+      border-radius: 0;
+      &:hover {
+        border-color: $color-dark-grey;
+      }
+    } // BUTTON
+    button[type=submit] {
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      text-decoration: none;
+      appearance: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: size(1) size(2);
+      min-height: 36px;
+      min-width: 88px;
+      text-transform: uppercase;
+      font-size: 11px;
+      line-height: 1.45;
+      letter-spacing: 0.6px;
+      text-align: center;
+      font-weight: bold;
+      color: $color-white;
+      @include elevation("none");
+      transition: background-color 250ms ease-in-out, box-shadow 250ms ease-in-out;
+      background-color: $button-color;
+      &:hover {
+        @include elevation("overlay");
+        border: 0;
+        background-color: $button-color;
+      }
+      &:focus,
+      &:active {
+        outline: none;
+        background-color: darken($button-color, 12);
+        border-color: darken($button-color, 12);
+      }
+    }
+    select {
+      transition: border-color 300ms ease-in-out;
+      &:hover {
+        border-color: $button-color-secondary;
+      }
+    }
+  }
+}

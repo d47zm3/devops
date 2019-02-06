@@ -1,0 +1,10 @@
+// body.tulo-logged-in {}
+.login-icon {
+  fill: get-theme-color($currentTheme, "main");
+}
+
+.tulo-logged-in {
+  .login-icon {
+    fill: get-theme-color($currentTheme, "main-secondary");
+  }
+}

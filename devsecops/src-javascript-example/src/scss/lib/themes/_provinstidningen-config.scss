@@ -1,0 +1,76 @@
+$provinstidningen-colors: (
+  "main": #00a1e5,
+  "main-secondary": #ffbb43,
+  "family": #76b9e0,
+  "opinion": #f29d00,
+  "fun": #ffffff,
+  "sport": #ffffff,
+  "culture": #ffffff,
+  "theme": #ffffff,
+  "other": #ffffff,
+
+  // Base elements
+  "link": #00a1e5,
+  "link-hover": darken(#00a1e5, 10),
+
+  // Mark
+  "mark": #da3038,
+
+  // Components
+  "button-primary": #00a1e5,
+  "button-secondary": #76b9e0,
+
+  "footer-text": #ffffff,
+  "footer-background": #24243c,
+  "footer-link": #00a1e5,
+  "footer-button": #00a1e5,
+
+  // Header
+  "header-background-main": #00a1e5,
+  "header-color-main": #FFFFFF,
+
+  "header-background-family": #76b9e0,
+  "header-color-family": #FFFFFF,
+
+  "header-background-opinion":  #f29d00,
+  "header-color-opinion": #FFFFFF,
+
+  "header-background-fun": #ffffff,
+  "header-color-fun": #1d1e1f,
+
+  "header-background-sport": #ffffff,
+  "header-color-sport": #1d1e1f,
+
+  "header-background-culture": #ffffff,
+  "header-color-culture": #1d1e1f,
+
+  "header-background-theme": #ffffff,
+  "header-color-theme": #1d1e1f,
+
+  "header-background-other": #ffffff,
+  "header-color-other": #1d1e1f,
+
+  // Shade
+  "shade": #e3ebee
+);
+
+$provinstidningen-sizes: (
+  "logo": (
+    "large": (
+      "width": 368px,
+      "height": 48px,
+    ),
+    "small": (
+      "width": 50px,
+      "height": 30px,
+    ),
+    "mobile": (
+      "width": 60px,
+      "height": 32px,
+    ),
+    "footer": (
+      "width": 260px,
+      "height": 48px,
+    )
+  )
+);

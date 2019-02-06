@@ -1,0 +1,72 @@
+.radio {
+  $root: &;
+
+  &__input {
+    position: absolute;
+    z-index: -100;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    &:checked + #{$root}__label {
+      &::before {
+        border-color: get-theme-color($currentTheme, "main");
+      }
+
+      &::after {
+        transform: scale(0.5);
+      }
+    }
+
+    &[disabled] + #{$root}__label {
+      &::before {
+        border-color: $color-gray-pale;
+      }
+
+      &::after {
+        background-color: $color-gray-pale;
+      }
+    }
+
+  }
+
+  &__label {
+    @include font('caption');
+    position: relative;
+    display: block;
+    padding-left: size(3);
+    margin-bottom: size(1);
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: size(2);
+      height: size(2);
+    }
+
+    &::before {
+      transition: border-color 250ms ease-in-out;
+      z-index: 1;
+      background: transparent;
+      border-radius: 100%;
+      border: 1px solid $color-gray-dark;
+    }
+
+    &::after {
+      transition: transform 250ms ease-in-out, background-color 250ms ease-in-out;
+      z-index: 1;
+      border-radius: 100%;
+      background-color: get-theme-color($currentTheme, "main");
+      transform: scale(0);
+    }
+  }
+}

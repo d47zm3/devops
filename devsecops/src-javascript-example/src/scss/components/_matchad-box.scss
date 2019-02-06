@@ -1,0 +1,27 @@
+.matchad-box {
+  &__header {
+    position: relative;
+    padding-top: size(1);
+    margin-bottom: size(3);
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: size(9);
+      height: size(0.5);
+      background-color: get-theme-color($currentTheme, "main");
+      content: '';
+    }
+  }
+
+  &__title {
+    @include font("paragraph");
+
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: $color-gray-dark;
+  }
+}

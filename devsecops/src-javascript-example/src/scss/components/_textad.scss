@@ -1,0 +1,45 @@
+.textad {
+  border-width: size(1/2) 0 0 0;
+  border-style: solid; 
+  margin-bottom: size(2);
+  
+  &--fun {
+      border-color: $color-magenta;
+  }
+
+  &--holiday {
+      border-color: $color-holiday;
+  }
+
+  &--auction {
+      border-color: $color-auction;
+  }
+
+  &__title {
+      @include font("paragraph");
+      font-weight: bold;
+      margin-top: size(1);
+  }
+
+  &__location {
+      @include font("small");
+  }
+
+  &__links {
+      fill: get-theme-color($currentTheme, "main");
+      margin-top: size(2);
+      .icon {
+          width: size(2);
+          padding-top: size(1/4);
+          vertical-align: bottom;
+      }
+      a {
+          @include font("caption");
+          margin-right: size(3);
+          color: $color-slate-grey;
+          &:hover {
+              color: get-theme-color($currentTheme, "link-hover");
+          }
+      }
+  }
+}

@@ -1,0 +1,11 @@
+.page-search {
+  &__title {
+    @include font("h3");
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

@@ -1,0 +1,6 @@
+blockquote,
+.blockquote {
+  border-left: size(0.5) solid get-theme-color($currentTheme, "main");
+  padding-left: size(2);
+  margin: size(5) size(3);
+}

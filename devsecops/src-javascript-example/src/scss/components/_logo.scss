@@ -1,0 +1,38 @@
+.logo {
+  $root: &;
+
+  display: block;
+
+  &--dark {
+    fill: $color-dark-grey;
+  }
+
+  &--show {
+    height: 50%;
+    width: 100%;
+  }
+
+  &--white {
+    background-color: $color-dark-grey;
+  }
+
+  &--footer {
+    height: get-logo-size($currentTheme, "footer", "height");
+    width: get-logo-size($currentTheme, "footer", "width");
+  }
+
+  &--large {
+    height: get-logo-size($currentTheme, "large", "height");
+    width: get-logo-size($currentTheme, "large", "width");
+  }
+
+  &--small {
+    height: get-logo-size($currentTheme, "small", "height");
+    width: get-logo-size($currentTheme, "small", "width");
+  }
+
+  &--mobile {
+    height: get-logo-size($currentTheme, "mobile", "height");
+    width: get-logo-size($currentTheme, "mobile", "width");
+  }
+}

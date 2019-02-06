@@ -1,0 +1,28 @@
+.popular-box {
+  &__header {
+    background: get-theme-color($currentTheme, "main");
+    margin-bottom: size(2);
+    padding: size(1);
+    color: $color-white;
+  }
+
+  &__title {
+    @include font("caption");
+
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    & + & {
+      margin-top: size(2);
+      padding-top: size(2);
+      border-top: 1px solid $color-gray-pale;
+    }
+  }
+}

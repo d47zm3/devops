@@ -1,0 +1,97 @@
+{{> layout/head }}
+{{> components/header }}
+<div class="site-content">
+  <main class="container">
+    <div class="js-article-load-zone" data-load-url="./single-article-paywall.html">
+      <div class="d-none d-xl-block">
+        <div class="ad-container ad-container--w980 ad-container--h240 ad-container--left">
+          <div class="ad-container__inner">
+            <img class="ad-container__ad" src="http://www.placehold.it/980x240" alt="ad banner">
+          </div>
+        </div>
+      </div>
+
+      <!-- Article start -->
+      {{> components/article-full-paywall }}
+      <!-- Article end -->
+
+      <!-- More start -->
+      <div class="recommendation-box">
+        <h2 class="recommendation-box__title">REKOMMENDERAT FÖR DIG</h2>
+        <ul class="recommendation-box__items">
+          <li class="recommendation-box__item">
+            <a href="#" class="card card--link card--full-height">
+              <div class="image-aspect card__image">
+                <img src="https://picsum.photos/320/180?image=767" alt="Test" class="image-aspect__img">
+              </div>
+              <div class="card__content">
+                <h3 class="text-lead">Adipisci corporis culpa facere</h3>
+              </div>
+            </a>
+          </li>
+          <li class="recommendation-box__item">
+            <a href="#" class="card card--link card--full-height">
+              <div class="image-aspect card__image">
+                <img src="https://picsum.photos/320/180?image=775" alt="Test" class="image-aspect__img">
+              </div>
+              <div class="card__content">
+                <h3 class="text-lead">Adipisci corporis culpa facere</h3>
+              </div>
+            </a>
+          </li>
+          <li class="recommendation-box__item">
+            <a href="#" class="card card--link card--full-height">
+              <div class="image-aspect card__image">
+                <img src="https://picsum.photos/320/180?image=835" alt="Test" class="image-aspect__img">
+              </div>
+              <div class="card__content">
+                <h3 class="text-lead">Adipisci corporis culpa facere</h3>
+              </div>
+            </a>
+          </li>
+          <li class="recommendation-box__item">
+            <a href="#" class="card card--link card--full-height">
+              <div class="image-aspect card__image">
+                <img src="https://picsum.photos/320/180?image=828" alt="Test" class="image-aspect__img">
+              </div>
+              <div class="card__content">
+                <h3 class="text-lead">Adipisci corporis culpa facere</h3>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- More end -->
+
+      <!-- Ad start -->
+      <div class="d-none d-xl-block">
+        <div class="ad-container ad-container--w980 ad-container--h240 ad-container--left">
+          <div class="ad-container__inner">
+            <img class="ad-container__ad" src="http://www.placehold.it/980x240" alt="ad banner">
+          </div>
+        </div>
+      </div>
+      <!-- Ad end -->
+    </div>
+
+    <!-- Load zone start -->
+    <div class="pt-1 pb-1 js-article-load-threshold">
+      <div class="loader m-auto js-article-load-loader" hidden>
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+        <div class="loader__tile"></div>
+      </div>
+    </div>
+    <!-- Load zone end -->
+  </main>
+  <div class="side-column">
+    <img src="http://www.placehold.it/160x600" alt="" style="display: block" class="mb-2">
+    <img src="http://www.placehold.it/160x600" alt="" style="display: block" class="mb-2">
+  </div>
+</div>
+
+
+
+{{> components/footer }}
+{{> layout/foot }}

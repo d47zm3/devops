@@ -1,0 +1,57 @@
+.cookie-info {
+  @include elevation("popup");
+  @include font("small");
+
+  transition: transform 400ms ease-in-out, opacity 400ms ease-in-out, visibility 0ms 400ms;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: size(2);
+  right: size(2);
+  padding: size(2);
+  background-color: $color-gray-pale;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(size(2));
+  pointer-events: none;
+  width: calc(100% - #{size(4)});
+  z-index: 1000;
+
+  @include respond-to('small') {
+    flex-direction: row;
+    width: auto;
+    max-width: size(85);
+    padding: size(4);
+    bottom: size(4);
+    right: size(4);
+    transform: translateY(size(3));
+  }
+
+  @include respond-to('medium') {
+    max-width: none;
+  }
+
+  &--visible {
+    transition: transform 400ms ease-in-out, opacity 400ms ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+    visibility: visible;
+  }
+
+  &__text {
+    flex: 1 1 auto;
+    width: 100%;
+    text-align: center;
+
+    @include respond-to('small') {
+      text-align: left;
+    }
+  }
+
+  &__action {
+    flex: 0 0 auto;
+    margin-left: size(3);
+  }
+}

@@ -1,0 +1,127 @@
+.card {
+  $root: &;
+
+  @include elevation("raised");
+
+  transition: transform 250ms ease-in-out, box-shadow 250ms ease-in-out;
+  display: block;
+  color: $color-gray-dark;
+  position: relative;
+
+  &--full-height {
+    height: 100%;
+  }
+
+  &--flat {
+    @include elevation("flat");
+  }
+
+  &--overlay {
+    @include elevation("overlay");
+  }
+
+  &--link {
+    transition: box-shadow 250ms ease-in-out;
+    color: $color-gray-dark;
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include elevation("overlay");
+
+      color: $color-gray-dark;
+
+      &#{$root}--flat {
+        @include elevation("raised");
+      }
+
+      &#{$root}--overlay {
+        @include elevation("sticky");
+      }
+    }
+  }
+
+  &--advert {
+    background-color: $color-advert-shade;
+    position: relative;
+
+    &:before {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: size(0.5);
+      background-color: $color-advert;
+      content: '';
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+
+  &__badge {
+    position: absolute;
+    z-index: 5;
+    top: size(2);
+    right: 0;
+
+    &--lower {
+      top: size(3);
+    }
+
+    &--above {
+      top: 0;
+      transform: translateY(-100%) translateY(#{-1 * size(2)});
+    }
+  }
+
+  &__content {
+    padding: size(2);
+
+    &--category {
+      position: relative;
+      padding-top: size(3);
+      padding-bottom: size(3);
+    }
+  }
+
+  &__caption {
+    @include font("tiny");
+
+    position: absolute;
+    top: size(0.5);
+    left: size(2);
+    text-transform: uppercase;
+    color: $color-cool-grey-two;
+  }
+
+  &__category-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: size(0.5);
+    background-color: get-theme-color($currentTheme, "main");
+    &--long {
+      width: 100%;
+    }
+  }
+
+  &__category-vignette {
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    width: 100%;
+    // background: get-theme-color($currentTheme, "main");
+    color: $color-white;
+    padding: size(1) size(2);
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

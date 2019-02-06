@@ -1,0 +1,23 @@
+.weather {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  &__text {
+    @include font("caption");
+
+    display: block;
+    margin-left: size(0.5);
+  }
+
+  &__date {
+    margin-left: 0;
+    margin-right: size(2);
+  }
+}

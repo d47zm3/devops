@@ -1,0 +1,336 @@
+<!-- Remove side nav from aria = only visible menu for screen readers is main menu -->
+<div class="side-nav" aria-hidden="true">
+  <div class="side-nav__header">
+    <svg class="icon logo logo--small logo--dark">
+      <use xlink:href="#logo-small-vf"></use>
+    </svg>
+
+    <button class="side-nav__close js-side-nav-trigger">
+      <span class="sr-only">close</span>
+      <svg class="icon side-nav__close-icon">
+        <use xlink:href="#cancel"></use>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="side-nav__content">
+    <ul class="navlist">
+      <li class="navlist__item">
+        <form action="/sok/">
+          <div class="input input--has-icon">
+            <div class="input__inner">
+              <label class="input__label" for="inputId2">Fyll i sökord…</label>
+              <input class="input__field" id="inputId2" type="text">
+              <button type="submit" class="button input__icon pt-0 pb-0">
+                <svg class="icon icon--block">
+                  <use xlink:href="#search"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </form>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link navlist__link--hasSub">
+          <svg class="icon navlist__icon" aria-hidden="true">
+            <use xlink:href="#arr-down"></use>
+          </svg>
+          Asikter
+        </a>
+        <ul class="navlist__sub">
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Ledare
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Signerat
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Debatt
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Insandare
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Bildspel
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Chefredaktor’n
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link navlist__link--hasSub">
+          <svg class="icon navlist__icon" aria-hidden="true">
+            <use xlink:href="#arr-down"></use>
+          </svg>
+          Ekonomi
+        </a>
+        <ul class="navlist__sub">
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Lokusjobb
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Ekonomitelegram
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Presmeddelande
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Helg
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Hus & hem
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Karlstadsliv
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link navlist__link--hasSub">
+          <svg class="icon navlist__icon" aria-hidden="true">
+            <use xlink:href="#arr-down"></use>
+          </svg>
+          Kultur
+        </a>
+        <ul class="navlist__sub">
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Biskopen
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Bocker
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Konst
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Konstkalendariet
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Scen
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Mat & dryck
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Motor
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link navlist__link--hasSub">
+          <svg class="icon navlist__icon" aria-hidden="true">
+            <use xlink:href="#arr-down"></use>
+          </svg>
+          Noje
+        </a>
+        <ul class="navlist__sub">
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Det hander
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Film
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Pa scen
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Spel
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Skivor
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Nojen och evenemang
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Resor
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Sommar
+        </a>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link navlist__link--hasSub">
+          <svg class="icon navlist__icon" aria-hidden="true">
+            <use xlink:href="#arr-down"></use>
+          </svg>
+          Sport
+        </a>
+        <ul class="navlist__sub">
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Amerikansk fotball
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Bandy
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Basket
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Bowling
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Fotboll
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Friidrott
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Folj
+            </a>
+          </li>
+
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Golf
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Handboll
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Innebandy
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Ishockey
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Motorsport
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Orientering
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Ridsport
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Simsport
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Skytte
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Speedway
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Trav/spel
+            </a>
+          </li>
+          <li class="navlist__item navlist__item--sub">
+            <a href="#" class="navlist__link navlist__link--sub">
+              Vintersport
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="navlist__item">
+        <a href="#" class="navlist__link">
+          Teknik & prylar
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

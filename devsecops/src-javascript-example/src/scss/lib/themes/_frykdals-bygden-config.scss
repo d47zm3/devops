@@ -1,0 +1,76 @@
+$frykdals-bygden-colors: (
+  "main": #e55c00,
+  "main-secondary": #f29d00,
+  "family": #f7a285,
+  "opinion": #57bcbf,
+  "fun": #ffffff,
+  "sport": #00a1e5,
+  "culture": #6c4289,
+  "theme": #f29d00,
+  "other": #ffffff,
+
+  // Base elements
+  "link": #e55c00,
+  "link-hover": darken(#e55c00, 10),
+
+  // Mark
+  "mark": #da3038,
+
+  // Components
+  "button-primary": #e55c00,
+  "button-secondary": #f29d00,
+
+  "footer-text": #ffffff,
+  "footer-background": #261d13,
+  "footer-link": #f29d00,
+  "footer-button": #e55c00,
+
+  // Header
+  "header-background-main": #e55c00,
+  "header-color-main": #FFFFFF,
+
+  "header-background-family": #f7a285,
+  "header-color-family": #FFFFFF,
+
+  "header-background-opinion":  #57bcbf,
+  "header-color-opinion": #ffffff,
+
+  "header-background-fun": #ffffff,
+  "header-color-fun": #1d1e1f,
+
+  "header-background-sport": #00a1e5,
+  "header-color-sport": #ffffff,
+
+  "header-background-culture": #6c4289,
+  "header-color-culture": #FFFFFF,
+
+  "header-background-theme": #f29d00,
+  "header-color-theme": #FFFFFF,
+
+  "header-background-other": #ffffff,
+  "header-color-other": #1d1e1f,
+
+  // Shade
+  "shade": #e3ebee
+);
+
+$frykdals-bygden-sizes: (
+  "logo": (
+    "large": (
+      "width": 368px,
+      "height": 48px,
+    ),
+    "small": (
+      "width": 50px,
+      "height": 30px,
+    ),
+    "mobile": (
+      "width": 60px,
+      "height": 32px,
+    ),
+    "footer": (
+      "width": 172px,
+      "height": 48px,
+    )
+  )
+);

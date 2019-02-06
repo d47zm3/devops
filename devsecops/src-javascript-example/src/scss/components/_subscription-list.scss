@@ -1,0 +1,16 @@
+.subscription-list {
+  list-style: none;
+  padding: size(4) 0 0 0;
+  margin: #{-1 * size(4)} #{-1 * size(1)};
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 350px;
+  overflow: auto;
+
+  &__item {
+    padding: 0 size(1);
+    flex: 0 0 auto;
+    width: 25%;
+    margin-bottom: size(2);
+  }
+}

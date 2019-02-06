@@ -1,0 +1,219 @@
+//  -----------------------------
+//  Helpers
+//  -----------------------------
+
+// set svg as background
+@mixin background-svg($svg){
+  background-image: svg-url($svg);
+}
+
+//  -----------------------------
+//  Typography
+//  -----------------------------
+
+/**
+  Include file from global path by name given in $fontFileName
+  Can be used in font-family as $fontName
+
+  .woff and .woff2 cover all modern browsers
+
+  @mixin
+ */
+@mixin fontface($fontName, $fontFileName, $fontWeight: normal, $fontStyle: normal) {
+  @font-face {
+    font-family: $fontName;
+    src: url('../fonts/#{$fontFileName}.woff2') format('woff2'),
+    url('../fonts/#{$fontFileName}.woff') format('woff');
+    font-weight: $fontWeight;
+    font-style: $fontStyle;
+  }
+}
+
+@mixin font-open-sans() {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+
+@mixin font-roboto-slab() {
+  font-family: "Roboto Slab", Rockwell, Georgia, serif;
+}
+
+@mixin font-uber() {
+  font-size: $font-size-uber;
+  line-height: $line-height-uber;
+}
+
+@mixin font-hero() {
+  font-size: $font-size-hero;
+  line-height: $line-height-hero;
+}
+
+@mixin font-h1() {
+  font-size: $font-size-h1;
+  line-height: $line-height-h1;
+}
+
+@mixin font-h2() {
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
+}
+
+@mixin font-h3() {
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
+}
+
+@mixin font-h4() {
+  font-size: $font-size-h4;
+  line-height: $line-height-h4;
+}
+
+@mixin font-lead() {
+  font-size: $font-size-lead;
+  line-height: $line-height-lead;
+}
+
+@mixin font-paragraph() {
+  font-size: $font-size-paragraph;
+  line-height: $line-height-paragraph;
+}
+
+@mixin font-small() {
+  font-size: $font-size-small;
+  line-height: $line-height-small;
+}
+
+@mixin font-caption() {
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
+  letter-spacing: 0.2px;
+}
+
+@mixin font-tiny() {
+  font-size: $font-size-tiny;
+  line-height: $line-height-tiny;
+  letter-spacing: 0.2px;
+}
+
+@mixin font($type: "paragraph") {
+  @if ($type == "uber") {
+    @include font-uber;
+  }
+
+  @else if($type == "hero") {
+    @include font-hero;
+  }
+
+  @else if($type == "h1") {
+    @include font-h1;
+  }
+
+  @else if($type == "h2") {
+    @include font-h2;
+  }
+
+  @else if($type == "h3") {
+    @include font-h3;
+  }
+
+  @else if($type == "h4") {
+    @include font-h4;
+  }
+
+  @else if($type == "lead") {
+    @include font-lead;
+  }
+
+  @else if($type == "paragraph") {
+    @include font-paragraph;
+  }
+
+  @else if($type == "small") {
+    @include font-small;
+  }
+
+  @else if($type == "caption") {
+    @include font-caption;
+  }
+
+  @else if($type == "tiny") {
+    @include font-tiny;
+  }
+
+  @else {
+    @error 'No font style found for `#{$type}`';
+  }
+}
+
+//  -----------------------------
+//  Responsiveness
+//  -----------------------------
+
+/**
+  Responsive breakpoints manager
+  sets $breakpoint if exists in global $breakpoints list
+ */
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(type-of($raw-query) == 'string', unquote($raw-query), inspect($raw-query));
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}
+
+//  -----------------------------
+//  Elevation
+//  -----------------------------
+
+/**
+  Elevation manager
+  Sets styles for box based on $elevation setting
+  elevation settings:
+  flat,
+  none,
+  raised,
+  overlay,
+  sticky,
+  side,
+  popup
+ */
+@mixin elevation($elevation: "raised") {
+  @if ($elevation == "flat")  {
+    box-shadow: $elevation-shadow-none;
+    border: $elevation-border-flat;
+  }
+
+  @else if($elevation == "none") {
+    box-shadow: $elevation-shadow-none;
+  }
+
+  @else if($elevation == "raised") {
+    box-shadow: $elevation-shadow-raised;
+  }
+
+  @else if($elevation == "overlay") {
+    box-shadow: $elevation-shadow-overlay;
+  }
+
+  @else if($elevation == "sticky") {
+    box-shadow: $elevation-shadow-sticky;
+  }
+
+  @else if($elevation == "side") {
+    box-shadow: $elevation-shadow-side;
+  }
+
+  @else if($elevation == "popup") {
+    box-shadow: $elevation-shadow-popup;
+  }
+
+  @else {
+    @error 'No elevation found for `#{$elevation}`';
+  }
+}

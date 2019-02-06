@@ -1,0 +1,22 @@
+.image-aspect {
+  position: relative;
+  padding-top: 56.25%;
+  overflow: hidden;
+
+  &__img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transform: translateY(-50%);
+
+    img {
+      display: block;
+    }
+  }
+
+  &--1x1 {
+    padding-top: 100%;
+  }
+}

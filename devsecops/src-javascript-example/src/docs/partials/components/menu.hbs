@@ -1,0 +1,94 @@
+<nav class="navigation">
+  <div class="container">
+    <div class="navigation__inner">
+      <div class="navigation__addition navigation__addition--left">
+        <div class="interchange js-interchange">
+          <div class="interchange__inner">
+            <a href="#" class="navigation__action weather" data-mega-menu-target="0-weather.MegaMenu">
+              <span class="weather__text weather__date">Tis 30 Jan</span>
+              <svg class="icon weather__icon"><use xlink:href="#cloud"></use></svg>
+              <span class="weather__text">-1&deg;</span>
+            </a>
+            <a href="#" class="navigation__logo">
+              <svg class="icon logo logo--dark logo--small">
+                <use xlink:href="#logo-small-vf"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navigation__list">
+        <li class="navigation__element active" data-section="main" data-mega-menu-target="mainMegaMenu">
+          <a href="#" class="navigation__link navigation__link--main">Nyheter</a>
+          {{> components/megamenu-main }}
+        </li>
+        <li class="navigation__element" data-section="opinion" data-mega-menu-target="opinionMegaMenu">
+          <a href="#" class="navigation__link navigation__link--opinion">Åsikt</a>
+          {{> components/megamenu-opinion }}
+        </li>
+        <li class="navigation__element" data-section="sport" data-mega-menu-target="sportMegaMenu">
+          <a href="#" class="navigation__link navigation__link--sport">Sport</a>
+          {{> components/megamenu-sport }}
+        </li>
+        <li class="navigation__element" data-section="theme" data-mega-menu-target="themeMegaMenu">
+          <a href="#" class="navigation__link navigation__link--theme">Tema</a>
+          {{> components/megamenu-theme }}
+        </li>
+        <li class="navigation__element" data-section="fun" data-mega-menu-target="advertiseMegaMenu">
+          <a href="#" class="navigation__link navigation__link--fun">Annonsera</a>
+          {{> components/megamenu-advertise }}
+        </li>
+        <li class="navigation__element navigation__element--desktop" data-mega-menu-target="otherMegaMenu">
+          <a href="#" class="navigation__link navigation__link--has-icon">
+            mera
+
+            <svg class="icon navigation__link-icon">
+              <use xlink:href="#menu"></use>
+            </svg>
+          </a>
+          {{> components/megamenu-other }}
+        </li>
+      </ul>
+
+      <div class="navigation__addition navigation__addition--right">
+        <ul class="inline-list">
+          <li class="inline-list__item">
+            <button class="button navigation__action" data-mega-menu-target="searchMegaMenu">
+            <span class="sr-only">Sök</span>
+            <svg class="icon icon--block" aria-hidden="true">
+              <use xlink:href="#search"></use>
+            </svg>
+          </button>
+          </li>
+          <li class="inline-list__item">
+            <button class="button navigation__action" data-mega-menu-target="subscriptionsMegaMenu">
+            <span class="sr-only">Prenumerera</span>
+            <svg class="icon icon--block" aria-hidden="true">
+              <use xlink:href="#news"></use>
+            </svg>
+          </button>
+          </li>
+          <li class="inline-list__item">
+            <button class="button d-flex align-items-center navigation__action" data-mega-menu-target="userMegaMenu">
+          <span class="sr-only">Logga in</span>
+          <svg class="icon icon--bounce icon--block login-icon" aria-hidden="true" id="login-icon">
+            <use xlink:href="#account-outline"></use>
+          </svg>
+          <span class="button__login-text">logga in</span>
+        </button>
+        <div id="login-tooltip" class="tooltip tooltip--dark tooltip--login" hidden>
+          <div class="tooltip__content">
+            Logga in för obegränsad läsning
+          </div>
+        </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {{> components/megamenu-weather }}
+    {{> components/megamenu-user }}
+    {{> components/megamenu-subscriptions }}
+    {{> components/megamenu-search }}
+  </div>
+</nav>

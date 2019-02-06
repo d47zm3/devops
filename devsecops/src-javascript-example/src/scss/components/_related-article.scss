@@ -1,0 +1,16 @@
+.related-article {
+  @include font('small');
+
+  display: block;
+  vertical-align: middle;
+
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+    fill: currentColor;
+  }
+
+  &__text {
+    vertical-align: middle;
+  }
+}

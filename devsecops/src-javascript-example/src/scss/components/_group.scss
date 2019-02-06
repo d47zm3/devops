@@ -1,0 +1,13 @@
+/**
+  Grouping section providing spacing for elements
+ */
+
+.group {
+  &__element {
+    margin-bottom: size(6);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

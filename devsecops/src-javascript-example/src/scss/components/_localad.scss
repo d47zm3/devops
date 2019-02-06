@@ -1,0 +1,37 @@
+.localad {
+  text-align: center;
+  &::before {
+    top: size(2);
+    content: "";
+    display: block;
+    position: absolute;
+    left:0;
+    background: currentColor;
+    height: size(4);
+    width: size(1/2);
+  }
+  &__icon {
+    width: size(4);
+    height: size(4);
+    fill: currentColor;
+  }
+
+  &__title {
+    @include font("lead");
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  
+  &__description {
+    @include font("small");
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  // TODO: colors - selectable from localad creator
+  &--color-primary {
+    color: get-theme-color($currentTheme, "main");
+  }
+  &--color-secondary {
+    color: get-theme-color($currentTheme, "main-secondary");
+  }
+}

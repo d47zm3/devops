@@ -1,0 +1,51 @@
+<div class="backdrop" id="adblocker-wrapper" hidden>
+
+  <div class="adblocker">
+    <div class="adblocker__close">
+      <button class="button" id="adblocker-close-btn">
+        <svg class="icon icon--block">
+          <use xlink:href="#cancel"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="adblocker__content">
+      
+      <div class="adblocker__text logged-out" id="adblocker-logged-out" hidden>
+        <h1>Oh no!</h1>
+        <h2>You use Ablocker</h2>
+        <p>Detta är en låst artikel. Logga in som prenumerant för att fortsätta läsa.</p>
+        <a class="button button--primary">
+          <span class="button__inner">
+            <span class="button__text">Logga in</span>
+          </span>
+        </a>
+        <p>Teckna en plus prenumeration för bara 1 krona första månaden, därefter 99 kr/månad. Ingen bindningstid.</p>
+        <a class="button button--secondary">
+          <span class="button__inner">
+            <span class="button__text">Prenumerate</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="adblocker__text logged-in" id="adblocker-logged-in" hidden>
+        <h1>Oh no!</h1>
+        <h2>You use Ablocker</h2>
+        <p>Text explaining why it is no good. And can you turn it off?</p>
+        <a class="button button--primary mt-2" id="disable-adblock-message-btn">
+          <span class="button__inner">
+            <span class="button__text">I understand, do not show again</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="adblocker__icon">
+        <svg class="icon icon--block">
+          <use xlink:href="#warning-outline"></use>
+        </svg>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>

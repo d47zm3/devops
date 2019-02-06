@@ -1,0 +1,78 @@
+.checkbox {
+  $root: &;
+  $tick-svg: '<svg height="24" fill="#{$color-white}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">'+
+                  '<path d="M0 0h24v24H0z" fill="none"/>'+
+                  '<path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>'+
+              '</svg>';
+
+  $tick-url: svg-url($tick-svg);
+
+
+  &__input {
+    position: absolute;
+    z-index: -100;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    &:checked + #{$root}__label {
+      &::before {
+        background-color: rgba(get-theme-color($currentTheme, "main"), 1);
+        border-color: rgba(get-theme-color($currentTheme, "main"), 0);
+      }
+
+      &::after {
+        opacity: 1;
+      }
+    }
+
+    &[disabled] + #{$root}__label {
+      &::before {
+        border-color: $color-pale-grey;
+      }
+    }
+
+    &[disabled]:checked + #{$root}__label {
+      &::before {
+        background-color: get-theme-color($currentTheme, "shade");
+      }
+    }
+  }
+
+  &__label {
+    @include font('caption');
+    position: relative;
+    display: block;
+    padding-left: size(3);
+    margin-bottom: size(1);
+    &:hover {
+      cursor: pointer;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: size(2);
+      height: size(2);
+    }
+
+    &::before {
+      transition: border-color 250ms ease-in-out, background-color 250ms ease-in-out;
+      z-index: 1;
+      background-color: rgba(get-theme-color($currentTheme, "main"), 0);
+      border: 1px solid $color-gray-dark;
+    }
+
+    &::after {
+      transition: opacity 250ms ease-in-out;
+      z-index: 2;
+      opacity: 0;
+      background: no-repeat center/18px $tick-url;
+    }
+  }
+}

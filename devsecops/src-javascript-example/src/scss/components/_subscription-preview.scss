@@ -1,0 +1,46 @@
+.subscription-preview {
+  $root: &;
+
+  transition: color 250ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: $color-gray-dark;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: get-theme-color($currentTheme, "link");
+  }
+
+  &__cover {
+    background-color: get-theme-color($currentTheme, "shade");
+    padding: size(2) size(3);
+  }
+
+  &__title {
+    @include font("caption");
+
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: size(2);
+    padding: 0 size(2);
+    text-align: center;
+  }
+
+  &__more {
+    @include font("paragraph");
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    color: $color-cool-grey;
+
+    border: solid 1px $color-pale-grey;
+    height: 197px;
+    padding: 0 size(2);
+
+  }
+}

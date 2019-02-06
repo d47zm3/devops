@@ -1,0 +1,76 @@
+$karlskoga-kuriren-colors: (
+  "main": #d90000,
+  "main-secondary": #ff738c,
+  "family": #6c4289,
+  "opinion": #d90000,
+  "fun": #ffffff,
+  "sport": #4bb6cc,
+  "culture": #ffffff,
+  "theme": #7a2e2a,
+  "other": #ffffff,
+
+  // Base elements
+  "link": #d90000,
+  "link-hover": darken(#d90000, 10),
+
+  // Mark
+  "mark": #da3038,
+
+  // Components
+  "button-primary": #d90000,
+  "button-secondary": #ff738c,
+
+  "footer-text": #ffffff,
+  "footer-background": #565657,
+  "footer-link": #d90000,
+  "footer-button": #d90000,
+
+  // Header
+  "header-background-main": #d90000,
+  "header-color-main": #FFFFFF,
+
+  "header-background-family": #6c4289,
+  "header-color-family": #FFFFFF,
+
+  "header-background-opinion":  #d90000,
+  "header-color-opinion": #FFFFFF,
+
+  "header-background-fun": #ffffff,
+  "header-color-fun": #1d1e1f,
+
+  "header-background-sport": #4bb6cc,
+  "header-color-sport": #ffffff,
+
+  "header-background-culture": #ffffff,
+  "header-color-culture": #1d1e1f,
+
+  "header-background-theme": #7a2e2a,
+  "header-color-theme": #ffffff,
+
+  "header-background-other": #ffffff,
+  "header-color-other": #1d1e1f,
+
+  // Shade
+  "shade": #e3ebee
+);
+
+$karlskoga-kuriren-sizes: (
+  "logo": (
+    "large": (
+      "width": 368px,
+      "height": 48px,
+    ),
+    "small": (
+      "width": 40px,
+      "height": 30px,
+    ),
+    "mobile": (
+      "width": 60px,
+      "height": 32px,
+    ),
+    "footer": (
+      "width": 260px,
+      "height": 48px,
+    )
+  )
+);

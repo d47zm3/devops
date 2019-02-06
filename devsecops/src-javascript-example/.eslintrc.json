@@ -1,0 +1,20 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base"
+  ],
+  "globals": {
+    "__DEV__": true
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-console":1,
+    "arrow-parens": "off",
+    "no-unused-expressions": "off",
+    "no-plusplus":"off",
+    "no-param-reassign": [2, { "props": false }],
+    "max-len": "off"
+  }
+}

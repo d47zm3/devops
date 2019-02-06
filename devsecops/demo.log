@@ -1,0 +1,1035 @@
+START Wed Nov 14 16:44:04 CET 2018
+[***] D.I.P. - because sauce is not everything [***]
+[***]   ~Powered by Schibsted Hack Day 2018~   [***]
+
+usage:  ./run.sh
+        -h: show help
+        -t <target url|source code directory|remote git repository>: specify url/source code directory/repository, must be used with -m
+        -m <build|scan|source|secrets>: specify mode to run, must be used with -t for all option except 'build'
+example: 
+        ./run.sh -m build    : build docker images with tools
+        ./run.sh -m scan    -t https://my.example.app.com : scan remote target for known vulnerabilities
+        ./run.sh -m source  -t example-app/src : scan local directory with source code for known vulnerable dependencies (js/php)
+        ./run.sh -m secrets -t https://github.com/vulnerable/example.git : scan remote repository for commited secrets and sensitive files
+[***] D.I.P. - because sauce is not everything [***]
+[***]   ~Powered by Schibsted Hack Day 2018~   [***]
+
+[0;32m[16:44:14] scanning target http://172.17.0.1/[0m
+Starting Nmap 7.70 ( https://nmap.org ) at 2018-11-14 15:44 UTC
+Nmap scan report for 172.17.0.1
+Host is up (0.000032s latency).
+Not shown: 97 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+111/tcp  open  rpcbind
+3306/tcp open  mysql
+MAC Address: 02:42:CF:57:46:65 (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.52 seconds
+[0;31m[16:44:17] found unusual ports open, application should have only ports 80 and/or 443 open, are you sure these should be exposed?[0m
+111/tcp  open  rpcbind
+3306/tcp open  mysql
+Total of 10 URLs
+PASS: Cookie Without Secure Flag [10011]
+PASS: Incomplete or No Cache-control and Pragma HTTP Header Set [10015]
+PASS: Cross-Domain JavaScript Source File Inclusion [10017]
+PASS: Content-Type Header Missing [10019]
+PASS: Information Disclosure - Debug Error Messages [10023]
+PASS: Information Disclosure - Sensitive Information in URL [10024]
+PASS: Information Disclosure - Sensitive Information in HTTP Referrer Header [10025]
+PASS: HTTP Parameter Override [10026]
+PASS: Information Disclosure - Suspicious Comments [10027]
+PASS: Viewstate Scanner [10032]
+PASS: Secure Pages Include Mixed Content [10040]
+PASS: CSP Scanner [10055]
+PASS: Weak Authentication Method [10105]
+PASS: Private IP Disclosure [2]
+PASS: Session ID in URL Rewrite [3]
+PASS: Script Passive Scan Rules [50001]
+PASS: Insecure JSF ViewState [90001]
+PASS: Charset Mismatch [90011]
+PASS: Application Error Disclosure [90022]
+PASS: WSDL File Passive Scanner [90030]
+PASS: Loosely Scoped Cookie [90033]
+WARN-NEW: Cookie No HttpOnly Flag [10010] x 2 
+	http://172.17.0.1/
+	http://172.17.0.1/
+WARN-NEW: Web Browser XSS Protection Not Enabled [10016] x 2 
+	http://172.17.0.1/login.php
+	http://172.17.0.1/sitemap.xml
+WARN-NEW: X-Frame-Options Header Not Set [10020] x 1 
+	http://172.17.0.1/login.php
+WARN-NEW: X-Content-Type-Options Header Missing [10021] x 5 
+	http://172.17.0.1/login.php
+	http://172.17.0.1/robots.txt
+	http://172.17.0.1/dvwa/css/login.css
+	http://172.17.0.1/dvwa/images/login_logo.png
+	http://172.17.0.1/dvwa/images/RandomStorm.png
+WARN-NEW: Absence of Anti-CSRF Tokens [10202] x 1 
+	http://172.17.0.1/login.php
+FAIL-NEW: 0	FAIL-INPROG: 0	WARN-NEW: 5	WARN-INPROG: 0	INFO: 0	IGNORE: 0	PASS: 21
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          172.17.0.1
++ Target Hostname:    172.17.0.1
++ Target Port:        80
++ Start Time:         2018-11-14 15:44:39 (GMT0)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.25 (Debian)
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ Cookie PHPSESSID created without the httponly flag
++ Cookie security created without the httponly flag
++ Root page / redirects to: login.php
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Apache/2.4.25 appears to be outdated (current is at least Apache/2.4.34). Apache 2.2.34 is the EOL for the 2.x branch.
++ OSVDB-3268: /config/: Directory indexing found.
++ /config/: Configuration information may be available remotely.
++ OSVDB-3268: /docs/: Directory indexing found.
++ OSVDB-3233: /icons/README: Apache default file found.
++ /login.php: Admin login page/section found.
++ /.gitignore: .gitignore file found. It is possible to grasp the directory structure.
++ 7911 requests: 0 error(s) and 12 item(s) reported on remote host
++ End Time:           2018-11-14 15:45:40 (GMT0) (61 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+[0;31m[16:45:41] nikto found more than 0 items, please review log above![0m
+[***] D.I.P. - because sauce is not everything [***]
+[***]   ~Powered by Schibsted Hack Day 2018~   [***]
+
+[0;32m[16:45:51] scanning source code in directory src-javascript-example[0m
+[INFO] Checking for updates
+[INFO] Skipping NVD check since last check was within 4 hours.
+[INFO] Skipping RetireJS update since last update was within 24 hours.
+[INFO] Check for updates complete (121 ms)
+[INFO] Analysis Started
+[INFO] Finished File Name Analyzer (0 seconds)
+[INFO] Finished Dependency Merging Analyzer (0 seconds)
+[INFO] Finished Version Filter Analyzer (0 seconds)
+[INFO] Finished Hint Analyzer (0 seconds)
+[INFO] Created CPE Index (4 seconds)
+[INFO] Skipping CPE Analysis for npm
+[INFO] Finished CPE Analyzer (4 seconds)
+[INFO] Finished False Positive Analyzer (0 seconds)
+[INFO] Finished NVD CVE Analyzer (0 seconds)
+[INFO] Finished Node Security Platform Analyzer (1 seconds)
+[INFO] Finished RetireJS Analyzer (0 seconds)
+[INFO] Finished Vulnerability Suppression Analyzer (0 seconds)
+[INFO] Finished Dependency Bundling Analyzer (0 seconds)
+[INFO] Analysis Complete (6 seconds)
+[***] D.I.P. - because sauce is not everything [***]
+[***]   ~Powered by Schibsted Hack Day 2018~   [***]
+
+[0;32m[16:46:27] scanning repository https://github.com/d47zm3/git-scan.git[0m
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-11-14 15:00:57[0m
+[92mHash: fcf7404eb2cffd0c5a2f3532379a879259f7b4cd[0m
+[92mFilepath: .aws/config[0m
+[92mBranch: origin/master[0m
+[92mCommit: cleanup
+
+Signed-off-by: Damian Tykałowski <d47zm3@gmail.com>
+[0m
+@@ -0,0 +1,2 @@
++export AWS_ACCESS_KEY_ID=AKIAIUUUUUX9XX5AAAAA
++export AWS_SECRET_ACCESS_[93mKEY=bFmFxHH2tK9w5hMQ0+j5/Yj/xL83+s0e9XvGi+FG[0m
+
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-11-14 14:53:32[0m
+[92mHash: 86c7fbc468fce5cc73bf6e3a6fb415dd9d91560b[0m
+[92mFilepath: .aws/config[0m
+[92mBranch: origin/master[0m
+[92mCommit: oops!
+
+Signed-off-by: Damian Tykałowski <d47zm3@gmail.com>
+[0m
+@@ -1,2 +0,0 @@
+-export AWS_ACCESS_KEY_ID=AKIAIUUUUUX9XX5AAAAA
+-export AWS_SECRET_ACCESS_[93mKEY=bFmFxHH2tK9w5hMQ0+j5/Yj/xL83+s0e9XvGi+FG[0m
+
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-11-14 14:53:32[0m
+[92mHash: 86c7fbc468fce5cc73bf6e3a6fb415dd9d91560b[0m
+[92mFilepath: .ssh/id_rsa[0m
+[92mBranch: origin/master[0m
+[92mCommit: oops!
+
+Signed-off-by: Damian Tykałowski <d47zm3@gmail.com>
+[0m
+@@ -0,0 +1,27 @@
++-----BEGIN RSA PRIVATE KEY-----
+[93m+MIIEpAIBAAKCAQEAwzUpUnHPr2o9Qk8GVfTooYpZxzUJThujM6MMXAWuSUI8T4f6[0m
+[93m+ssSa+mYPgzaRgR0/XBqWnGbkxiD+AQY9cKUEtiXtBIKhQGjLPp5jPKaGILNCeh7K[0m
+[93m+OrIbd8R70VtL4jGgvUADQv8tPM/86GIwFgmOCQTlrbx1zTIrm/99X5aQ7Sid4ap9[0m
+[93m++2cQa0xNcYhXzfAsttejco21WyaFmz9+FrOUi+tHH/oS3RcklFPe7X4QrapLdbZP[0m
+[93m+ZdmQE12iLDbg5KkqJKUaStdYELgh/rTuIjWwBk8VaL+vabnMYWOrrxBWft0tLKq6[0m
+[93m+2tfl5Q+lBvEY95jqpzNxm+MJz9EPB+90sqGS9wIDAQABAoIBAAzuF4ebfEs9OUOM[0m
+[93m+InpNF5+jn2C/lZcz43KHKUlrIuk9VutZsXRn63AMlJh3Y9nuiwTZygIgGqU5CDof[0m
+[93m+JLCybYZ3KqTy1iWDC3thWGdrDFVcKloWcgTDSWh8fksWxgb8jI4ckFq+tkth53mp[0m
+[93m+D1BWX68fQOtqIU9vNE5H9REA0yayPTeU6vNGmLmSss1U59bcoBdHsM+8vBuK1gyW[0m
+[93m+ipQypmvxwI7U3lvO3qBF+To0BFNCsLi6Q8k/avtHeT/wzsvGJMeTLVuia8BM2wm+[0m
+[93m+Z9DNhC1A9lQSm7Pptd3tUKkkDbC/FWm02B60gpLuA4RiixXYW5jCWBvsneC6yKJR[0m
+[93m+SS6Q6oECgYEA+94/1GdEc6FtcXwaQFQn7SxDkl03VaVCngybrdr1fkHMXvDRzEx/[0m
+[93m+5yloT6IdWs50lzCt7cappYmga1zpME06hIzzxtNhG5QEMy35cQ9k8yrmeiY1IGGO[0m
+[93m+64sFLQ1ucSmjLnu7iz3bCGcPY6bOQWXbFvAAaUuXFrYNr451FoJxhbcCgYEAxmj1[0m
+[93m+oSJYRwhMLBnGPuITy30lQHjZ1Tn9/pcn9gzYh3taQ0Muz3WRYEMUC1zCoftWutmV[0m
+[93m+4p+lnKcy1U28wC9ZYlJI1KCyXZZR9Z7u8EsscPkQSknbipQGrp02xX1SeD7UjXnl[0m
+[93m+0dB+Hd1EG0F3f7x4cv5h+4Ay1sX7q5onThjyXMECgYEAt+EMLJ+v49NIuX9nEuvd[0m
+[93m+slOMiYCwc0CRoB2IUqb2b1TORcn/AO4gur0KQIkUcUUk7XRGpr9Q/1+41GkifXcE[0m
+[93m+b90P5GpSDPZFErBP2fDpPHZniWn3g0p2MxRtlPSnWsqRLdB7nS5tiHblT1VqY2hf[0m
+[93m+SSGyyyy6g4Qp/a89YE+fXYUCgYBHS+QoGO1b6RFmL4Tbh+XRE5FVT5gHVSV+XNbR[0m
+[93m+ReBxHtRao0Oo7PhmfPQw+Q4/os+RqSqBGxkp57MOjzaqYNlfyW2+alht5NxixM/b[0m
+[93m+rUe0+OrvpwarD3IvQPMzmEsQRpOemxUIhkErfh1BJg9I6XLm755J/9FE+DPtgCFr[0m
+[93m+oO9GgQKBgQCUymK+gytYd++bTKVhVN0NJ6pqMxlihfpBcgUewMTcePFBK0KXlaEP[0m
+[93m+J4rCEGkx8nA1bBjZhVNe+ZCMIwmJe97LgQ0KEPt0S6EFsL2qHoftsNcuPBL0SuFb[0m
+[93m+gluDeJsc7hibr++gqs1sC95c8miGHNtfW10dlAHP95NXWkmHhUeSWA==[0m
++-----END RSA PRIVATE KEY-----
+
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-11-14 14:51:15[0m
+[92mHash: 50a1fb09a1e78da9a6847f993a627cb7719ec117[0m
+[92mFilepath: .ssh/id_rsa[0m
+[92mBranch: origin/master[0m
+[92mCommit: oops!
+
+Signed-off-by: Damian Tykałowski <d47zm3@gmail.com>
+[0m
+@@ -1,27 +0,0 @@
+------BEGIN RSA PRIVATE KEY-----
+-[93mMIIEpAIBAAKCAQEAwzUpUnHPr2o9Qk8GVfTooYpZxzUJThujM6MMXAWuSUI8T4f6[0m
+-[93mssSa+mYPgzaRgR0/XBqWnGbkxiD+AQY9cKUEtiXtBIKhQGjLPp5jPKaGILNCeh7K[0m
+-[93mOrIbd8R70VtL4jGgvUADQv8tPM/86GIwFgmOCQTlrbx1zTIrm/99X5aQ7Sid4ap9[0m
+-[93m+2cQa0xNcYhXzfAsttejco21WyaFmz9+FrOUi+tHH/oS3RcklFPe7X4QrapLdbZP[0m
+-[93mZdmQE12iLDbg5KkqJKUaStdYELgh/rTuIjWwBk8VaL+vabnMYWOrrxBWft0tLKq6[0m
+-[93m2tfl5Q+lBvEY95jqpzNxm+MJz9EPB+90sqGS9wIDAQABAoIBAAzuF4ebfEs9OUOM[0m
+-[93mInpNF5+jn2C/lZcz43KHKUlrIuk9VutZsXRn63AMlJh3Y9nuiwTZygIgGqU5CDof[0m
+-[93mJLCybYZ3KqTy1iWDC3thWGdrDFVcKloWcgTDSWh8fksWxgb8jI4ckFq+tkth53mp[0m
+-[93mD1BWX68fQOtqIU9vNE5H9REA0yayPTeU6vNGmLmSss1U59bcoBdHsM+8vBuK1gyW[0m
+-[93mipQypmvxwI7U3lvO3qBF+To0BFNCsLi6Q8k/avtHeT/wzsvGJMeTLVuia8BM2wm+[0m
+-[93mZ9DNhC1A9lQSm7Pptd3tUKkkDbC/FWm02B60gpLuA4RiixXYW5jCWBvsneC6yKJR[0m
+-[93mSS6Q6oECgYEA+94/1GdEc6FtcXwaQFQn7SxDkl03VaVCngybrdr1fkHMXvDRzEx/[0m
+-[93m5yloT6IdWs50lzCt7cappYmga1zpME06hIzzxtNhG5QEMy35cQ9k8yrmeiY1IGGO[0m
+-[93m64sFLQ1ucSmjLnu7iz3bCGcPY6bOQWXbFvAAaUuXFrYNr451FoJxhbcCgYEAxmj1[0m
+-[93moSJYRwhMLBnGPuITy30lQHjZ1Tn9/pcn9gzYh3taQ0Muz3WRYEMUC1zCoftWutmV[0m
+-[93m4p+lnKcy1U28wC9ZYlJI1KCyXZZR9Z7u8EsscPkQSknbipQGrp02xX1SeD7UjXnl[0m
+-[93m0dB+Hd1EG0F3f7x4cv5h+4Ay1sX7q5onThjyXMECgYEAt+EMLJ+v49NIuX9nEuvd[0m
+-[93mslOMiYCwc0CRoB2IUqb2b1TORcn/AO4gur0KQIkUcUUk7XRGpr9Q/1+41GkifXcE[0m
+-[93mb90P5GpSDPZFErBP2fDpPHZniWn3g0p2MxRtlPSnWsqRLdB7nS5tiHblT1VqY2hf[0m
+-[93mSSGyyyy6g4Qp/a89YE+fXYUCgYBHS+QoGO1b6RFmL4Tbh+XRE5FVT5gHVSV+XNbR[0m
+-[93mReBxHtRao0Oo7PhmfPQw+Q4/os+RqSqBGxkp57MOjzaqYNlfyW2+alht5NxixM/b[0m
+-[93mrUe0+OrvpwarD3IvQPMzmEsQRpOemxUIhkErfh1BJg9I6XLm755J/9FE+DPtgCFr[0m
+-[93moO9GgQKBgQCUymK+gytYd++bTKVhVN0NJ6pqMxlihfpBcgUewMTcePFBK0KXlaEP[0m
+-[93mJ4rCEGkx8nA1bBjZhVNe+ZCMIwmJe97LgQ0KEPt0S6EFsL2qHoftsNcuPBL0SuFb[0m
+-[93mgluDeJsc7hibr++gqs1sC95c8miGHNtfW10dlAHP95NXWkmHhUeSWA==[0m
+------END RSA PRIVATE KEY-----
+
+~~~~~~~~~~~~~~~~~~~~~
+time="2018-11-14T15:46:34Z" level=info msg="cloning https://github.com/d47zm3/git-scan.git"
+Enumerating objects: 12, done.
+Counting objects:   8% (1/12)   Counting objects:  16% (2/12)   Counting objects:  25% (3/12)   Counting objects:  33% (4/12)   Counting objects:  41% (5/12)   Counting objects:  50% (6/12)   Counting objects:  58% (7/12)   Counting objects:  66% (8/12)   Counting objects:  75% (9/12)   Counting objects:  83% (10/12)   Counting objects:  91% (11/12)   Counting objects: 100% (12/12)   Counting objects: 100% (12/12), done.
+Compressing objects:  12% (1/8)   Compressing objects:  25% (2/8)   Compressing objects:  37% (3/8)   Compressing objects:  50% (4/8)   Compressing objects:  62% (5/8)   Compressing objects:  75% (6/8)   Compressing objects:  87% (7/8)   Compressing objects: 100% (8/8)   Compressing objects: 100% (8/8), done.
+Total 12 (delta 1), reused 11 (delta 0), pack-reused 0
+{
+   "line": "export AWS_ACCESS_KEY_ID=AKIAIUUUUUX9XX5AAAAA",
+   "commit": "fcf7404eb2cffd0c5a2f3532379a879259f7b4cd",
+   "offender": "AKIAIUUUUUX9XX5AAAAA",
+   "reason": "AWS",
+   "commitMsg": "cleanup  Signed-off-by: Damian Tykałowski \u003cd47zm3@gmail.com\u003e ",
+   "author": "Damian Tykałowski \u003cd47zm3@gmail.com\u003e",
+   "file": ".aws/config",
+   "repo": "git-scan.git",
+   "date": "2018-11-14T16:00:57+01:00"
+}
+{
+   "line": "export AWS_ACCESS_KEY_ID=AKIAIUUUUUX9XX5AAAAA",
+   "commit": "86c7fbc468fce5cc73bf6e3a6fb415dd9d91560b",
+   "offender": "AKIAIUUUUUX9XX5AAAAA",
+   "reason": "AWS",
+   "commitMsg": "oops!  Signed-off-by: Damian Tykałowski \u003cd47zm3@gmail.com\u003e ",
+   "author": "Damian Tykałowski \u003cd47zm3@gmail.com\u003e",
+   "file": ".aws/config",
+   "repo": "git-scan.git",
+   "date": "2018-11-14T15:53:32+01:00"
+}
+{
+   "line": "-----BEGIN RSA PRIVATE KEY-----",
+   "commit": "86c7fbc468fce5cc73bf6e3a6fb415dd9d91560b",
+   "offender": "-----BEGIN RSA PRIVATE KEY-----",
+   "reason": "RSA",
+   "commitMsg": "oops!  Signed-off-by: Damian Tykałowski \u003cd47zm3@gmail.com\u003e ",
+   "author": "Damian Tykałowski \u003cd47zm3@gmail.com\u003e",
+   "file": ".ssh/id_rsa",
+   "repo": "git-scan.git",
+   "date": "2018-11-14T15:53:32+01:00"
+}
+{
+   "line": "-----BEGIN RSA PRIVATE KEY-----",
+   "commit": "50a1fb09a1e78da9a6847f993a627cb7719ec117",
+   "offender": "-----BEGIN RSA PRIVATE KEY-----",
+   "reason": "RSA",
+   "commitMsg": "oops!  Signed-off-by: Damian Tykałowski \u003cd47zm3@gmail.com\u003e ",
+   "author": "Damian Tykałowski \u003cd47zm3@gmail.com\u003e",
+   "file": ".ssh/id_rsa",
+   "repo": "git-scan.git",
+   "date": "2018-11-14T15:51:15+01:00"
+}
+time="2018-11-14T15:46:35Z" level=warning msg="4 leaks detected. 4 commits inspected in 954 milliseconds"
+[***] D.I.P. - because sauce is not everything [***]
+[***]   ~Powered by Schibsted Hack Day 2018~   [***]
+
+[0;32m[16:46:46] scanning repository https://github.com/sskorc/repos-node.git[0m
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-08-31 14:15:13[0m
+[92mHash: 7a2ed26f96d2b4001dfad4069f615d645c82d84d[0m
+[92mFilepath: package-lock.json[0m
+[92mBranch: origin/master[0m
+[92mCommit: added simple test
+[0m
+@@ -16,28 +16,6 @@
+         "is-buffer": "1.1.6"
+       }
+     },
+-    "balanced-match": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz",
+-      "integrity": "sha1-[93mibTRmasr7kneFk6gK4nORi1xt2c=[0m",
+-      "dev": true
+-    },
+-    "brace-expansion": {
+-      "version": "1.1.11",
+-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
+-      "integrity": "sha512-[93miCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==[0m",
+-      "dev": true,
+-      "requires": {
+-        "balanced-match": "1.0.0",
+-        "concat-map": "0.0.1"
+-      }
+-    },
+-    "browser-stdout": {
+-      "version": "1.3.1",
+-      "resolved": "https://registry.npmjs.org/browser-stdout/-/browser-stdout-1.3.1.tgz",
+-      "integrity": "sha512-[93mqhAVI1+Av2X7qelOfAIYwXONood6XlZE/fXaBSmW/T5SzLAmCgzi+eiWE7fUvbHaeNBQH13UftjpXxsfLkMpgw==[0m",
+-      "dev": true
+-    },
+     "camelcase": {
+       "version": "4.1.0",
+       "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz",
+@@ -58,18 +36,6 @@
+       "resolved": "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz",
+       "integrity": "sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c="
+     },
+-    "commander": {
+-      "version": "2.15.1",
+-      "resolved": "https://registry.npmjs.org/commander/-/commander-2.15.1.tgz",
+-      "integrity": "sha512-[93mVlfT9F3V0v+jr4yxPc5gg9s62/fIVWsd2Bk2iD435um1NlGMYdVCq+MjcXnhYq2icNOizHr1kK+5TI6H0Hy0ag==[0m",
+-      "dev": true
+-    },
+-    "concat-map": {
+-      "version": "0.0.1",
+-      "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
+-      "integrity": "sha1-[93m2Klr13/Wjfd5OnMDajug1UBdR3s=[0m",
+-      "dev": true
+-    },
+     "cross-spawn": {
+       "version": "5.1.0",
+       "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz",
+@@ -96,18 +62,6 @@
+         "xregexp": "4.0.0"
+       }
+     },
+-    "diff": {
+-      "version": "3.5.0",
+-      "resolved": "https://registry.npmjs.org/diff/-/diff-3.5.0.tgz",
+-      "integrity": "sha512-[93mA46qtFgd+g7pDZinpnwiRJtxbC1hpgf0uzP3iG89scHk0AUC7A1TGxf5OiiOUv/JMZR8GOt8hL900hV0bOy5xA==[0m",
+-      "dev": true
+-    },
+-    "escape-string-regexp": {
+-      "version": "1.0.5",
+-      "resolved": "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz",
+-      "integrity": "sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=",
+-      "dev": true
+-    },
+     "execa": {
+       "version": "0.7.0",
+       "resolved": "https://registry.npmjs.org/execa/-/execa-0.7.0.tgz",
+@@ -138,12 +92,6 @@
+         "debug": "3.1.0"
+       }
+     },
+-    "fs.realpath": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz",
+-      "integrity": "sha1-[93mFQStJSMVjKpA20onh8sBQRmU6k8=[0m",
+-      "dev": true
+-    },
+     "get-caller-file": {
+       "version": "1.0.3",
+       "resolved": "https://registry.npmjs.org/get-caller-file/-/get-caller-file-1.0.3.tgz",
+@@ -154,54 +102,6 @@
+       "resolved": "https://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz",
+       "integrity": "sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ="
+     },
+-    "glob": {
+-      "version": "7.1.2",
+-      "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz",
+-      "integrity": "sha512-[93mMJTUg1kjuLeQCJ+ccE4Vpa6kKVXkPYJ2mOCQyUuKLcLQsdrMCpBPUi8qVE6+YuaJkozeA9NusTAw3hLr8Xe5EQ==[0m",
+-      "dev": true,
+-      "requires": {
+-        "fs.realpath": "1.0.0",
+-        "inflight": "1.0.6",
+-        "inherits": "2.0.3",
+-        "minimatch": "3.0.4",
+-        "once": "1.4.0",
+-        "path-is-absolute": "1.0.1"
+-      }
+-    },
+-    "growl": {
+-      "version": "1.10.5",
+-      "resolved": "https://registry.npmjs.org/growl/-/growl-1.10.5.tgz",
+-      "integrity": "sha512-[93mqBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==[0m",
+-      "dev": true
+-    },
+-    "has-flag": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz",
+-      "integrity": "sha1-[93mtdRU3CGZriJWmfNGfloH87lVuv0=[0m",
+-      "dev": true
+-    },
+-    "he": {
+-      "version": "1.1.1",
+-      "resolved": "https://registry.npmjs.org/he/-/he-1.1.1.tgz",
+-      "integrity": "sha1-k0EP0hsAlzUVH4howvJx80J+I/0=",
+-      "dev": true
+-    },
+-    "inflight": {
+-      "version": "1.0.6",
+-      "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.6.tgz",
+-      "integrity": "sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk=",
+-      "dev": true,
+-      "requires": {
+-        "once": "1.4.0",
+-        "wrappy": "1.0.2"
+-      }
+-    },
+-    "inherits": {
+-      "version": "2.0.3",
+-      "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.3.tgz",
+-      "integrity": "sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=",
+-      "dev": true
+-    },
+     "invert-kv": {
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/invert-kv/-/invert-kv-1.0.0.tgz",
+@@ -266,49 +166,6 @@
+       "resolved": "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.2.0.tgz",
+       "integrity": "sha512-[93mjf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==[0m"
+     },
+-    "minimatch": {
+-      "version": "3.0.4",
+-      "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz",
+-      "integrity": "sha512-[93myJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==[0m",
+-      "dev": true,
+-      "requires": {
+-        "brace-expansion": "1.1.11"
+-      }
+-    },
+-    "minimist": {
+-      "version": "0.0.8",
+-      "resolved": "http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz",
+-      "integrity": "sha1-hX/Kv8M5fSYluCKCYuhqp6ARsF0=",
+-      "dev": true
+-    },
+-    "mkdirp": {
+-      "version": "0.5.1",
+-      "resolved": "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz",
+-      "integrity": "sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=",
+-      "dev": true,
+-      "requires": {
+-        "minimist": "0.0.8"
+-      }
+-    },
+-    "mocha": {
+-      "version": "5.2.0",
+-      "resolved": "https://registry.npmjs.org/mocha/-/mocha-5.2.0.tgz",
+-      "integrity": "sha512-[93m2IUgKDhc3J7Uug+FxMXuqIyYzH7gJjXECKe/w43IGgQHTSj3InJi+yAA7T24L9bQMRKiUEHxEX37G5JpVUGLcQ==[0m",
+-      "dev": true,
+-      "requires": {
+-        "browser-stdout": "1.3.1",
+-        "commander": "2.15.1",
+-        "debug": "3.1.0",
+-        "diff": "3.5.0",
+-        "escape-string-regexp": "1.0.5",
+-        "glob": "7.1.2",
+-        "growl": "1.10.5",
+-        "he": "1.1.1",
+-        "minimatch": "3.0.4",
+-        "mkdirp": "0.5.1",
+-        "supports-color": "5.4.0"
+-      }
+-    },
+     "ms": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+@@ -327,15 +184,6 @@
+       "resolved": "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz",
+       "integrity": "sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0="
+     },
+-    "once": {
+-      "version": "1.4.0",
+-      "resolved": "https://registry.npmjs.org/once/-/once-1.4.0.tgz",
+-      "integrity": "sha1-WDsap3WWHUsROsF9nFC6753Xa9E=",
+-      "dev": true,
+-      "requires": {
+-        "wrappy": "1.0.2"
+-      }
+-    },
+     "os-locale": {
+       "version": "2.1.0",
+       "resolved": "https://registry.npmjs.org/os-locale/-/os-locale-2.1.0.tgz",
+@@ -377,12 +225,6 @@
+       "resolved": "https://registry.npmjs.org/path-exists/-/path-exists-3.0.0.tgz",
+       "integrity": "sha1-[93mzg6+ql94yxiSXqfYENe1mwEP1RU=[0m"
+     },
+-    "path-is-absolute": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/path-is-absolute/-/path-is-absolute-1.0.1.tgz",
+-      "integrity": "sha1-[93mF0uSaHNVNP+8es5r9TpanhtcX18=[0m",
+-      "dev": true
+-    },
+     "path-key": {
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/path-key/-/path-key-2.0.1.tgz",
+@@ -448,15 +290,6 @@
+       "resolved": "https://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz",
+       "integrity": "sha1-[93mu0P/VZim6wXYm1n80SnJgzE2Br8=[0m"
+     },
+-    "supports-color": {
+-      "version": "5.4.0",
+-      "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-5.4.0.tgz",
+-      "integrity": "sha512-[93mzjaXglF5nnWpsq470jSv6P9DwPvgLkuapYmfDm3JWOm0vkNTVF2tI4UrN2r6jH1qM/uc/WtxYY1hYoA2dOKj5w==[0m",
+-      "dev": true,
+-      "requires": {
+-        "has-flag": "3.0.0"
+-      }
+-    },
+     "which": {
+       "version": "1.3.1",
+       "resolved": "https://registry.npmjs.org/which/-/which-1.3.1.tgz",
+@@ -512,12 +345,6 @@
+         }
+       }
+     },
+-    "wrappy": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz",
+-      "integrity": "sha1-[93mtSQ9jz7BqjXxNkYFvA0QNuMKtp8=[0m",
+-      "dev": true
+-    },
+     "xregexp": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/xregexp/-/xregexp-4.0.0.tgz",
+
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-08-29 14:38:17[0m
+[92mHash: 6f292c0e4e849e94d179a21faa3a8aa2021e6dc6[0m
+[92mFilepath: repositoryStats.js[0m
+[92mBranch: origin/master[0m
+[92mCommit: sync results
+[0m
+@@ -1,7 +1,6 @@
+ const axios = require("axios");
+ 
+ const host = 'https://api.github.com';
+-const token = 'access_token=[93m2d72e389bc2b3b500310067c45db3bb416a835bc[0m';
+ 
+ async function getData(url) {
+     try {
+@@ -13,16 +12,16 @@ async function getData(url) {
+ };
+ 
+ module.exports = async function (repo) {
+-    const stats = await getData(`${host}/repos/${repo}?${token}`);
++    const stats = await getData(`${host}/repos/${repo}`);
+ 
+     const watchers = stats.subscribers_count;
+     const stars = stats.stargazers_count;
+     const forks = stats.forks_count;
+ 
+-    const latestPullRequest = (await getData(`${host}/repos/${repo}/pulls?${token}&sort=created&limit=1&direction=desc`))[0];
++    const latestPullRequest = (await getData(`${host}/repos/${repo}/pulls?sort=created&limit=1&direction=desc`))[0];
+     const latestPullRequestDate = latestPullRequest !== undefined ? latestPullRequest.created_at : null;
+-    const numberOfOpenPullRequests = (await getData(`${host}/search/issues?${token}&q=type:pr+repo:${repo}+state:open`)).total_count;
+-    const numberOfClosedPullRequests = (await getData(`${host}/search/issues?${token}&q=type:pr+repo:${repo}+state:closed`)).total_count;
++    const numberOfOpenPullRequests = (await getData(`${host}/search/issues?q=type:pr+repo:${repo}+state:open`)).total_count;
++    const numberOfClosedPullRequests = (await getData(`${host}/search/issues?q=type:pr+repo:${repo}+state:closed`)).total_count;
+ 
+     return { repo, watchers, stars, forks, latestPullRequestDate, numberOfOpenPullRequests, numberOfClosedPullRequests };
+ };
+\ No newline at end of file
+
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-08-28 13:53:16[0m
+[92mHash: bca75da4351e34a96028f10632c7209470a71590[0m
+[92mFilepath: package-lock.json[0m
+[92mBranch: origin/master[0m
+[92mCommit: yargs, formatting
+[0m
+@@ -2,11 +2,6 @@
+   "requires": true,
+   "lockfileVersion": 1,
+   "dependencies": {
+-    "ansi-regex": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-3.0.0.tgz",
+-      "integrity": "sha1-7QMXwyIGT3lGbAKWa922Bas32Zg="
+-    },
+     "axios": {
+       "version": "0.18.0",
+       "resolved": "https://registry.npmjs.org/axios/-/axios-0.18.0.tgz",
+@@ -16,36 +11,6 @@
+         "is-buffer": "1.1.6"
+       }
+     },
+-    "camelcase": {
+-      "version": "4.1.0",
+-      "resolved": "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz",
+-      "integrity": "sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0="
+-    },
+-    "cliui": {
+-      "version": "4.1.0",
+-      "resolved": "https://registry.npmjs.org/cliui/-/cliui-4.1.0.tgz",
+-      "integrity": "sha512-[93m4FG+RSG9DL7uEwRUZXZn3SS34DiDPfzP0VOiEwtUWlE+AR2EIg+hSyvrIgUUfhdgR/UkAeW2QHgeP+hWrXs7jQ==[0m",
+-      "requires": {
+-        "string-width": "2.1.1",
+-        "strip-ansi": "4.0.0",
+-        "wrap-ansi": "2.1.0"
+-      }
+-    },
+-    "code-point-at": {
+-      "version": "1.1.0",
+-      "resolved": "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz",
+-      "integrity": "sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c="
+-    },
+-    "cross-spawn": {
+-      "version": "5.1.0",
+-      "resolved": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-5.1.0.tgz",
+-      "integrity": "sha1-6L0O/uWPz/b4+UUQoKVUu/ojVEk=",
+-      "requires": {
+-        "lru-cache": "4.1.3",
+-        "shebang-command": "1.2.0",
+-        "which": "1.3.1"
+-      }
+-    },
+     "debug": {
+       "version": "3.1.0",
+       "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
+@@ -54,36 +19,6 @@
+         "ms": "2.0.0"
+       }
+     },
+-    "decamelize": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/decamelize/-/decamelize-2.0.0.tgz",
+-      "integrity": "sha512-[93mIkpp5scV3MSYxY39ymh45ZLEecsTdv/Xj2CaQfI8RLMuwi7XvjX9H/fhraiSuU+C5w5NTDu4ZU72xNiZnurBPg==[0m",
+-      "requires": {
+-        "xregexp": "4.0.0"
+-      }
+-    },
+-    "execa": {
+-      "version": "0.7.0",
+-      "resolved": "https://registry.npmjs.org/execa/-/execa-0.7.0.tgz",
+-      "integrity": "sha1-lEvs00zEHuMqY6n68nrVpl/Fl3c=",
+-      "requires": {
+-        "cross-spawn": "5.1.0",
+-        "get-stream": "3.0.0",
+-        "is-stream": "1.1.0",
+-        "npm-run-path": "2.0.2",
+-        "p-finally": "1.0.0",
+-        "signal-exit": "3.0.2",
+-        "strip-eof": "1.0.0"
+-      }
+-    },
+-    "find-up": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/find-up/-/find-up-3.0.0.tgz",
+-      "integrity": "sha512-[93m1yD6RmLI1XBfxugvORwlck6f75tYL+iR0jqwsOrOxMZyGYqUuDhJ0l4AXdO1iX/FTs9cBAMEk1gWSEx1kSbylg==[0m",
+-      "requires": {
+-        "locate-path": "3.0.0"
+-      }
+-    },
+     "follow-redirects": {
+       "version": "1.5.7",
+       "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.5.7.tgz",
+@@ -92,300 +27,15 @@
+         "debug": "3.1.0"
+       }
+     },
+-    "get-caller-file": {
+-      "version": "1.0.3",
+-      "resolved": "https://registry.npmjs.org/get-caller-file/-/get-caller-file-1.0.3.tgz",
+-      "integrity": "sha512-[93m3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==[0m"
+-    },
+-    "get-stream": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz",
+-      "integrity": "sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ="
+-    },
+-    "invert-kv": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/invert-kv/-/invert-kv-1.0.0.tgz",
+-      "integrity": "sha1-EEqOSqym09jNFXqO+L+rLXo//bY="
+-    },
+     "is-buffer": {
+       "version": "1.1.6",
+       "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz",
+       "integrity": "sha512-[93mNcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==[0m"
+     },
+-    "is-fullwidth-code-point": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz",
+-      "integrity": "sha1-o7MKXE8ZkYMWeqq5O+764937ZU8="
+-    },
+-    "is-stream": {
+-      "version": "1.1.0",
+-      "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-1.1.0.tgz",
+-      "integrity": "sha1-EtSj3U5o4Lec6428hBc66A2RykQ="
+-    },
+-    "isexe": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
+-      "integrity": "sha1-[93m6PvzdNxVb/iUehDcsFctYz8s+hA=[0m"
+-    },
+-    "lcid": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/lcid/-/lcid-1.0.0.tgz",
+-      "integrity": "sha1-MIrMr6C8SDo4Z7S28rlQYlHRuDU=",
+-      "requires": {
+-        "invert-kv": "1.0.0"
+-      }
+-    },
+-    "locate-path": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/locate-path/-/locate-path-3.0.0.tgz",
+-      "integrity": "sha512-[93m7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A==[0m",
+-      "requires": {
+-        "p-locate": "3.0.0",
+-        "path-exists": "3.0.0"
+-      }
+-    },
+-    "lru-cache": {
+-      "version": "4.1.3",
+-      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.1.3.tgz",
+-      "integrity": "sha512-[93mfFEhvcgzuIoJVUF8fYr5KR0YqxD238zgObTps31YdADwPPAp82a4M8TrckkWyx7ekNlf9aBcVn81cFwwXngrJA==[0m",
+-      "requires": {
+-        "pseudomap": "1.0.2",
+-        "yallist": "2.1.2"
+-      }
+-    },
+-    "mem": {
+-      "version": "1.1.0",
+-      "resolved": "https://registry.npmjs.org/mem/-/mem-1.1.0.tgz",
+-      "integrity": "sha1-Xt1StIXKHZAP5kiVUFOZoN+kX3Y=",
+-      "requires": {
+-        "mimic-fn": "1.2.0"
+-      }
+-    },
+-    "mimic-fn": {
+-      "version": "1.2.0",
+-      "resolved": "https://registry.npmjs.org/mimic-fn/-/mimic-fn-1.2.0.tgz",
+-      "integrity": "sha512-[93mjf84uxzwiuiIVKiOLpfYk7N46TSy8ubTonmneY9vrpHNAnp0QBt2BxWV9dO3/j+BoVAb+a5G6YDPW3M5HOdMWQ==[0m"
+-    },
+     "ms": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
+       "integrity": "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
+-    },
+-    "npm-run-path": {
+-      "version": "2.0.2",
+-      "resolved": "https://registry.npmjs.org/npm-run-path/-/npm-run-path-2.0.2.tgz",
+-      "integrity": "sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8=",
+-      "requires": {
+-        "path-key": "2.0.1"
+-      }
+-    },
+-    "number-is-nan": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz",
+-      "integrity": "sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0="
+-    },
+-    "os-locale": {
+-      "version": "2.1.0",
+-      "resolved": "https://registry.npmjs.org/os-locale/-/os-locale-2.1.0.tgz",
+-      "integrity": "sha512-[93m3sslG3zJbEYcaC4YVAvDorjGxc7tv6KVATnLPZONiljsUncvihe9BQoVCEs0RZ1kmf4Hk9OBqlZfJZWI4GanKA==[0m",
+-      "requires": {
+-        "execa": "0.7.0",
+-        "lcid": "1.0.0",
+-        "mem": "1.1.0"
+-      }
+-    },
+-    "p-finally": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz",
+-      "integrity": "sha1-P7z7FbiZpEEjs0ttzBi3JDNqLK4="
+-    },
+-    "p-limit": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/p-limit/-/p-limit-2.0.0.tgz",
+-      "integrity": "sha512-[93mfl5s52lI5ahKCernzzIyAP0QAZbGIovtVHGwpcu1Jr/EpzLVDI2myISHwGqK7m8uQFugVWSrbxH7XnhGtvEc+A==[0m",
+-      "requires": {
+-        "p-try": "2.0.0"
+-      }
+-    },
+-    "p-locate": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/p-locate/-/p-locate-3.0.0.tgz",
+-      "integrity": "sha512-[93mx+12w/To+4GFfgJhBEpiDcLozRJGegY+Ei7/z0tSLkMmxGZNybVMSfWj9aJn8Z5Fc7dBUNJOOVgPv2H7IwulSQ==[0m",
+-      "requires": {
+-        "p-limit": "2.0.0"
+-      }
+-    },
+-    "p-try": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/p-try/-/p-try-2.0.0.tgz",
+-      "integrity": "sha512-[93mhMp0onDKIajHfIkdRk3P4CdCmErkYAxxDtP3Wx/4nZ3aGlau2VKh3mZpcuFkH27WQkL/3WBCPOktzA9ZOAnMQQ==[0m"
+-    },
+-    "path-exists": {
+-      "version": "3.0.0",
+-      "resolved": "https://registry.npmjs.org/path-exists/-/path-exists-3.0.0.tgz",
+-      "integrity": "sha1-[93mzg6+ql94yxiSXqfYENe1mwEP1RU=[0m"
+-    },
+-    "path-key": {
+-      "version": "2.0.1",
+-      "resolved": "https://registry.npmjs.org/path-key/-/path-key-2.0.1.tgz",
+-      "integrity": "sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A="
+-    },
+-    "pseudomap": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/pseudomap/-/pseudomap-1.0.2.tgz",
+-      "integrity": "sha1-8FKijacOYYkX7wqKw0wa5aaChrM="
+-    },
+-    "require-directory": {
+-      "version": "2.1.1",
+-      "resolved": "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz",
+-      "integrity": "sha1-[93mjGStX9MNqxyXbiNE/+f3kqam30I=[0m"
+-    },
+-    "require-main-filename": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/require-main-filename/-/require-main-filename-1.0.1.tgz",
+-      "integrity": "sha1-l/cXtp1IeE9fUmpsWqj/3aBVpNE="
+-    },
+-    "set-blocking": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/set-blocking/-/set-blocking-2.0.0.tgz",
+-      "integrity": "sha1-BF+XgtARrppoA93TgrJDkrPYkPc="
+-    },
+-    "shebang-command": {
+-      "version": "1.2.0",
+-      "resolved": "https://registry.npmjs.org/shebang-command/-/shebang-command-1.2.0.tgz",
+-      "integrity": "sha1-[93mRKrGW2lbAzmJaMOfNj/uXer98eo=[0m",
+-      "requires": {
+-        "shebang-regex": "1.0.0"
+-      }
+-    },
+-    "shebang-regex": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz",
+-      "integrity": "sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM="
+-    },
+-    "signal-exit": {
+-      "version": "3.0.2",
+-      "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.2.tgz",
+-      "integrity": "sha1-[93mtf3AjxKH6hF4Yo5BXiUTK3NkbG0=[0m"
+-    },
+-    "string-width": {
+-      "version": "2.1.1",
+-      "resolved": "https://registry.npmjs.org/string-width/-/string-width-2.1.1.tgz",
+-      "integrity": "sha512-[93mnOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==[0m",
+-      "requires": {
+-        "is-fullwidth-code-point": "2.0.0",
+-        "strip-ansi": "4.0.0"
+-      }
+-    },
+-    "strip-ansi": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-4.0.0.tgz",
+-      "integrity": "sha1-qEeQIusaw2iocTibY1JixQXuNo8=",
+-      "requires": {
+-        "ansi-regex": "3.0.0"
+-      }
+-    },
+-    "strip-eof": {
+-      "version": "1.0.0",
+-      "resolved": "https://registry.npmjs.org/strip-eof/-/strip-eof-1.0.0.tgz",
+-      "integrity": "sha1-[93mu0P/VZim6wXYm1n80SnJgzE2Br8=[0m"
+-    },
+-    "which": {
+-      "version": "1.3.1",
+-      "resolved": "https://registry.npmjs.org/which/-/which-1.3.1.tgz",
+-      "integrity": "sha512-[93mHxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==[0m",
+-      "requires": {
+-        "isexe": "2.0.0"
+-      }
+-    },
+-    "which-module": {
+-      "version": "2.0.0",
+-      "resolved": "https://registry.npmjs.org/which-module/-/which-module-2.0.0.tgz",
+-      "integrity": "sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho="
+-    },
+-    "wrap-ansi": {
+-      "version": "2.1.0",
+-      "resolved": "https://registry.npmjs.org/wrap-ansi/-/wrap-ansi-2.1.0.tgz",
+-      "integrity": "sha1-2Pw9KE3QV5T+hJc8rs3Rz4JP3YU=",
+-      "requires": {
+-        "string-width": "1.0.2",
+-        "strip-ansi": "3.0.1"
+-      },
+-      "dependencies": {
+-        "ansi-regex": {
+-          "version": "2.1.1",
+-          "resolved": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.1.1.tgz",
+-          "integrity": "sha1-[93mw7M6te42DYbg5ijwRorn7yfWVN8=[0m"
+-        },
+-        "is-fullwidth-code-point": {
+-          "version": "1.0.0",
+-          "resolved": "https://registry.npmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-1.0.0.tgz",
+-          "integrity": "sha1-754xOG8DGn8NZDr4L95QxFfvAMs=",
+-          "requires": {
+-            "number-is-nan": "1.0.1"
+-          }
+-        },
+-        "string-width": {
+-          "version": "1.0.2",
+-          "resolved": "https://registry.npmjs.org/string-width/-/string-width-1.0.2.tgz",
+-          "integrity": "sha1-[93mEYvfW4zcUaKn5w0hHgfisLmxB9M=[0m",
+-          "requires": {
+-            "code-point-at": "1.1.0",
+-            "is-fullwidth-code-point": "1.0.0",
+-            "strip-ansi": "3.0.1"
+-          }
+-        },
+-        "strip-ansi": {
+-          "version": "3.0.1",
+-          "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz",
+-          "integrity": "sha1-[93majhfuIU9lS1f8F0Oiq+UJ43GPc8=[0m",
+-          "requires": {
+-            "ansi-regex": "2.1.1"
+-          }
+-        }
+-      }
+-    },
+-    "xregexp": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/xregexp/-/xregexp-4.0.0.tgz",
+-      "integrity": "sha512-[93mPHyM+sQouu7xspQQwELlGwwd05mXUFqwFYfqPO0cC7x4fxyHnnuetmQr6CjJiafIDoH4MogHb9dOoJzR/Y4rFg==[0m"
+-    },
+-    "y18n": {
+-      "version": "4.0.0",
+-      "resolved": "https://registry.npmjs.org/y18n/-/y18n-4.0.0.tgz",
+-      "integrity": "sha512-[93mr9S/ZyXu/Xu9q1tYlpsLIsa3EeLXXk0VwlxqTcFRfg9EhMW+17kbt9G0NrgCmhGb5vT2hyhJZLfDGx+7+5Uj/w==[0m"
+-    },
+-    "yallist": {
+-      "version": "2.1.2",
+-      "resolved": "https://registry.npmjs.org/yallist/-/yallist-2.1.2.tgz",
+-      "integrity": "sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI="
+-    },
+-    "yargs": {
+-      "version": "12.0.1",
+-      "resolved": "https://registry.npmjs.org/yargs/-/yargs-12.0.1.tgz",
+-      "integrity": "sha512-[93mB0vRAp1hRX4jgIOWFtjfNjd9OA9RWYZ6tqGA9/I/IrTMsxmKvtWy+ersM+jzpQqbC3YfLzeABPdeTgcJ9eu1qQ==[0m",
+-      "requires": {
+-        "cliui": "4.1.0",
+-        "decamelize": "2.0.0",
+-        "find-up": "3.0.0",
+-        "get-caller-file": "1.0.3",
+-        "os-locale": "2.1.0",
+-        "require-directory": "2.1.1",
+-        "require-main-filename": "1.0.1",
+-        "set-blocking": "2.0.0",
+-        "string-width": "2.1.1",
+-        "which-module": "2.0.0",
+-        "y18n": "4.0.0",
+-        "yargs-parser": "10.1.0"
+-      }
+-    },
+-    "yargs-parser": {
+-      "version": "10.1.0",
+-      "resolved": "https://registry.npmjs.org/yargs-parser/-/yargs-parser-10.1.0.tgz",
+-      "integrity": "sha512-[93mVCIyR1wJoEBZUqk5PA+oOBF6ypbwh5aNB3I50guxAL/quggdfs4TtNHQrSazFA3fYZ+tEqfs0zIGlv0c/rgjbQ==[0m",
+-      "requires": {
+-        "camelcase": "4.1.0"
+-      }
+     }
+   }
+ }
+
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+[92mReason: High Entropy[0m
+[92mDate: 2018-08-28 10:48:37[0m
+[92mHash: 46841e31ee903cbe02ce0f934613f58e1d43b85d[0m
+[92mFilepath: package-lock.json[0m
+[92mBranch: origin/master[0m
+[92mCommit: inital commit
+[0m
+@@ -0,0 +1,41 @@
++{
++  "requires": true,
++  "lockfileVersion": 1,
++  "dependencies": {
++    "axios": {
++      "version": "0.18.0",
++      "resolved": "https://registry.npmjs.org/axios/-/axios-0.18.0.tgz",
++      "integrity": "sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=",
++      "requires": {
++        "follow-redirects": "1.5.7",
++        "is-buffer": "1.1.6"
++      }
++    },
++    "debug": {
++      "version": "3.1.0",
++      "resolved": "https://registry.npmjs.org/debug/-/debug-3.1.0.tgz",
++      "integrity": "sha512-[93mOX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==[0m",
++      "requires": {
++        "ms": "2.0.0"
++      }
++    },
++    "follow-redirects": {
++      "version": "1.5.7",
++      "resolved": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.5.7.tgz",
++      "integrity": "sha512-[93mNONJVIFiX7Z8k2WxfqBjtwqMifx7X42ORLFrOZ2LTKGj71G3C0kfdyTqGqr8fx5zSX6Foo/D95dgGWbPUiwnew==[0m",
++      "requires": {
++        "debug": "3.1.0"
++      }
++    },
++    "is-buffer": {
++      "version": "1.1.6",
++      "resolved": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz",
++      "integrity": "sha512-[93mNcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==[0m"
++    },
++    "ms": {
++      "version": "2.0.0",
++      "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
++      "integrity": "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
++    }
++  }
++}
+
+~~~~~~~~~~~~~~~~~~~~~
+time="2018-11-14T15:46:50Z" level=info msg="cloning https://github.com/sskorc/repos-node.git"
+Enumerating objects: 44, done.
+Total 44 (delta 0), reused 0 (delta 0), pack-reused 44
+time="2018-11-14T15:46:51Z" level=info msg="0 leaks detected. 10 commits inspected in 1 second 148 milliseconds"
+END Wed Nov 14 16:46:52 CET 2018

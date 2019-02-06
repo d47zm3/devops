@@ -1,0 +1,20 @@
+.icon-link {
+  transition: color 250ms ease-in-out;
+  color: $color-gray-dark;
+  fill: currentColor;
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: get-theme-color($currentTheme, "main");
+  }
+
+  &__icon {
+    margin-bottom: size(3);
+  }
+
+  &__caption {
+    @include font("caption");
+  }
+}

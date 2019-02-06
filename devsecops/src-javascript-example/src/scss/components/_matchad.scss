@@ -1,0 +1,44 @@
+.matchad {
+  border-width: size(0.5) 0 0 0;
+  border-style: solid;
+  border-color: $color-sunflower-yellow;
+
+  &__row {
+    display: flex;
+    padding: size(0.5) size(1) size(1) size(1);
+  }
+
+  &__text {
+    width: 100%;
+    color: $color-dark-grey;
+    flex: 1 1 auto;
+  }
+
+  &__thumb {
+    flex: 0 0 auto;
+    width: size(10);
+    height: size(10);
+
+    img {
+      display: block;
+    }
+  }
+
+  &__title {
+    @include font("caption");
+    font-weight: bold;
+    margin-bottom: size(1);
+  }
+
+  &__description {
+    @include font("tiny");
+  }
+
+  &__url {
+    @include font("caption");
+    color: get-theme-color($currentTheme, "link");
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+}
+

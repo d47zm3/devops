@@ -1,0 +1,72 @@
+// helper classes
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+// Spacing
+$spacing-sides: (
+  "t": "top",
+  "b": "bottom",
+  "l": "left",
+  "r": "right"
+);
+
+$spacing-types: (
+  "m": "margin",
+  "p": "padding"
+);
+
+// Generate margin and padding helper classes
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $type-short, $type-full in $spacing-types {
+      @each $side-short, $side-full in $spacing-sides {
+        @for $i from 0 through 10 {
+          .#{$type-short}#{$side-short}#{$infix}-#{$i} {
+            #{$type-full}-#{$side-full}: size($i) !important;
+          }
+        }
+      }
+    }
+
+    .m#{$infix}-auto {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+
+// Generate visibility old bootstrap docs
+.hidden {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+      &#{$infix}-up {
+         display: none!important;
+      }
+    }
+
+    @include media-breakpoint-down($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+      &#{$infix}-down {
+        display: none!important;
+      }
+    }
+  }
+}

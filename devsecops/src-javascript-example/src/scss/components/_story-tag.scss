@@ -1,0 +1,22 @@
+.story-tag {
+  $root: &;
+
+  transition: border-color 250ms ease-in-out;
+  display: block;
+  padding: size(1);
+  background-color: $color-white;
+  border: 1px solid get-theme-color($currentTheme, "shade");
+  text-decoration: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    border-color: darken(get-theme-color($currentTheme, "shade"), 5);
+  }
+
+  &__text {
+    display: block;
+    text-transform: uppercase;
+    color: $color-cool-grey-two;
+  }
+}

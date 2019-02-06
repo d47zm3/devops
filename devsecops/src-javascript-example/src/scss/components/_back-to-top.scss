@@ -1,0 +1,83 @@
+.back-top-top {
+  $root: &;
+
+  display: none;
+
+  @include respond-to('medium') {
+    @include elevation("overlay");
+
+    transition: background-color 250ms ease-in-out, box-shadow 250ms ease-in-out, opacity 250ms ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: size(4);
+    width: size(5);
+    height: size(5);
+    z-index: 500;
+    overflow: hidden;
+    background-color: get-theme-color($currentTheme, "link");
+    opacity: 0;
+
+    .header-fixed & {
+      opacity: 1;
+    }
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      @include media-breakpoint-up($breakpoint) {
+        $container-width: breakpoint-min($breakpoint, $container-max-widths);
+
+        @if($container-width) {
+          right: calc(((100vw - #{$container-width}) / 2));
+          transform: translateX(100%) translateX(size(2));
+        }
+      }
+    }
+  }
+
+
+  @include respond-to('medium') {
+    &:hover,
+    &:focus,
+    &:active {
+      @include elevation("sticky");
+
+      background-color: $color-gray-dark;
+
+      #{$root}__arrow {
+        animation: flyOutFlyIn 3s infinite ease-in-out;
+        animation-delay: -1s;
+      }
+    }
+  }
+
+  &__arrow {
+    fill: $color-white;
+  }
+
+  @keyframes flyOutFlyIn {
+    33% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    49.9% {
+      opacity: 0.5;
+    }
+
+    50% {
+      transform: translateY(-100%) translateY(#{-1 * size(1.5)});
+      opacity: 0; // to prevent visible jump on lower framerate
+    }
+
+    50.1% {
+      transform: translateY(100%) translateY(size(1.5));
+      opacity: 0.5;
+    }
+
+    66% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

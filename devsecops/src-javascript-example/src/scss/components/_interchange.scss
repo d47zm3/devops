@@ -1,0 +1,16 @@
+.interchange {
+  $root: &;
+
+  height: 100%;
+  overflow: hidden;
+
+  &--changed {
+    #{$root}__inner {
+      transform: translateY(-50%);
+    }
+  }
+
+  &__inner {
+    transition: transform 250ms ease-in-out;
+  }
+}

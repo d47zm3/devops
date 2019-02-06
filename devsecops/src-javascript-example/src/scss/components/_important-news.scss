@@ -1,0 +1,32 @@
+.important-news {
+  margin-bottom: size(3);
+  padding: size(1) 0 size(1) size(3);
+  border-left: solid size(1) get-theme-color($currentTheme, "main");
+  box-shadow: 0 1px 2px rgba(151, 151, 151, 0.15);
+
+  .swiper-slide {
+    transition: opacity 1600ms ease-in-out;
+
+    h3 {
+      @include font("paragraph");
+      font-weight: bold;
+    }
+  }
+  .swiper-slide-active {
+    opacity: 1;
+  }
+  .swiper-slide-prev, .swiper-slide-next {
+    opacity: 0;
+  }
+  .swiper-pagination {
+    @include font("caption");
+
+    color: $color-cool-grey-two;
+    position: absolute;
+    right: 0;
+    left: auto;
+    width: 75px;
+    text-align: right;
+    padding-right: size(2);
+  }
+}

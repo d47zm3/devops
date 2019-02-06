@@ -1,0 +1,41 @@
+.user-actions {
+    padding-right: size(2);
+
+    &--mobile {
+      max-height: 150px;
+      overflow: auto;
+    }
+
+    &__item {
+        margin-bottom: size(1);
+
+        &--logout {
+            border-top: solid 1px $color-pale-grey;
+            padding-top: size(2);
+        }
+    }
+
+    &__link {
+        text-transform: uppercase;
+        transition: background-color 250ms ease-in-out;
+        display: block;
+        width: 100%;
+        padding: size(1) size(2);
+        color: $color-gray-dark;
+        text-decoration: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: get-theme-color($currentTheme, "shade");
+          color: $color-gray-dark;
+        }
+        &--logout {
+            color: $color-cool-grey;
+        }
+    }
+}
+
+.welcome-message-box {
+  color: $color-slate-grey;
+}

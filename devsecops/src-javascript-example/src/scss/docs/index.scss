@@ -1,0 +1,159 @@
+.docs {
+  //overflow-x: hidden;
+}
+
+.docs-nav {
+  $docs-nav: &;
+
+  &__trigger {
+    @include elevation("raised");
+
+    transition: box-shadow 250ms ease-in-out, background-color 250ms ease-in-out, color 250ms ease-in-out;
+    position: fixed;
+    z-index: 4000;
+    bottom: size(2);
+    left: size(2);
+    padding: size(1) size(2);
+    background-color: $color-white;
+
+    &:hover,
+    &:focus,
+    &:active {
+      @include elevation("sticky");
+      animation: colorchange infinite 10s;
+      background-color: $color-gray-pale;
+      color: white;
+      cursor: pointer;
+    }
+
+    &--inner {
+      position: absolute;
+      top: 50%;
+      right: size(1);
+      bottom: auto;
+      left: auto;
+      transform: translateY(-50%);
+    }
+
+    @keyframes colorchange {
+      0% {background-color: $color-white;}
+      12% {background-color: get-theme-color($currentTheme, "main");}
+      25% {background-color: get-theme-color($currentTheme, "family");}
+      37% {background-color: get-theme-color($currentTheme, "fun");}
+      50% {background-color: get-theme-color($currentTheme, "sport");}
+      62% {background-color: get-theme-color($currentTheme, "culture");}
+      75% {background-color: get-theme-color($currentTheme, "opinion");}
+      87% {background-color: get-theme-color($currentTheme, "theme");}
+    }
+  }
+
+  &__input {
+    position: fixed;
+    z-index: -10;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    &:checked + #{$docs-nav}__content {
+      transform: translateX(0);
+      pointer-events: all;
+      overflow: auto;
+    }
+  }
+
+  &__content {
+    box-shadow: 0 0 15px 0 rgba($color-black, 0.15);
+    transition: transform 400ms ease-in-out;
+    background-color: $color-white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    z-index: 5001;
+    transform: translateX(-100%);
+    pointer-events: none;
+    border-right: 1px solid $color-gray-pale;
+  }
+
+  &__header {
+    position: relative;
+    display: flex;
+    border-bottom: 1px solid $color-gray-pale;
+  }
+
+  &__title {
+    margin: size(1);
+  }
+
+  &__list {
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: block;
+    padding: 0 0 0 size(1);
+    border-bottom: 1px solid $color-gray-pale;
+
+    #{$docs-nav}__item {
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &__link {
+    display: block;
+    width: 100%;
+    padding: size(1);
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-gray-pale;
+    }
+  }
+}
+
+.docs-section {
+  margin-bottom: size(3);
+  padding-bottom: size(3);
+  border-bottom: 1px solid $color-gray-pale;
+}
+
+.docs-section__title {
+  margin-bottom: 20px;
+}
+
+.docs-boxes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &__element {
+    flex: 0 0 auto;
+    padding: size(2);
+    text-align: center;
+  }
+}
+
+.docs-color-box {
+  border: 1px solid rgba($color-black, 0.1);
+  height: 30px;
+
+  & + & {
+    margin-top: 5px;
+  }
+
+  @each $theme, $colors in $color-themes {
+    @each $color-name, $color in $colors {
+      &--#{to-lower-case($theme)}-#{to-lower-case($color-name)} {
+        background-color: #{$color};
+      }
+    }
+  }
+}

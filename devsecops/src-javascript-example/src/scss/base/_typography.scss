@@ -1,0 +1,66 @@
+body {
+  @include font("paragraph");
+
+  color: $color-font-base;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include font-open-sans;
+
+  margin: 0;
+}
+
+h1,
+.h1 {
+  @include font("h1");
+  font-weight: inherit;
+}
+
+h2,
+.h2 {
+  @include font("h2");
+  font-weight: inherit;
+}
+
+h3,
+.h3 {
+  @include font("h3");
+  font-weight: inherit;
+}
+
+h4,
+.h4 {
+  @include font("h4");
+  font-weight: inherit;
+}
+
+h5,
+.h5 {
+  // @todo
+}
+
+h6,
+.h6 {
+  // @todo
+}
+
+small,
+.small {
+  @include font-small;
+}
+
+p {
+  margin: 0 0 size(2) 0;
+}

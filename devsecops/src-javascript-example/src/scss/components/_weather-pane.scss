@@ -1,0 +1,73 @@
+.weather-pane {
+  @include font("caption");
+
+  color: $color-dark-grey;
+  text-decoration: none;
+
+  &__header {
+    margin-bottom: size(2);
+    text-transform: uppercase;
+  }
+
+  &__title {
+    @include font("small");
+
+    font-weight: bold;
+    margin-bottom: size(1);
+  }
+
+  &__date {
+    color: get-theme-color($currentTheme, "link");
+  }
+
+  &__weather {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: size(3);
+    height: size(5);
+  }
+
+  &__icon {
+    fill: $color-dark-grey;
+    padding-left: size(1.5);
+    padding-right: size(1.5);
+  }
+
+  &__temperature {
+    @include font("h3");
+
+    padding-left: size(1.5);
+    padding-right: size(1.5);
+    font-weight: bold;
+  }
+
+  &__additional {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__additional-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & + & {
+      margin-top: size(1);
+    }
+  }
+
+  &__additional-key {
+    color: $color-cool-grey;
+  }
+
+  &__additional-value {
+    font-weight: bold;
+  }
+
+  &:hover {
+    color: inherit;
+  }
+}

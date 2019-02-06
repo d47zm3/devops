@@ -1,0 +1,19 @@
+.factbox {
+  margin: size(3) 0;
+  padding-left: size(2);
+  border-left: solid 4px get-theme-color($currentTheme, "main");
+
+  &__label {
+    @include font("caption");
+    color: get-theme-color($currentTheme, "main");
+  }
+
+  &__title {
+    font-weight: bold;
+    margin-bottom: size(1);
+  }
+
+  &__text {
+    @include font("small");
+  }
+}

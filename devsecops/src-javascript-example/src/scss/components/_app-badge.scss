@@ -1,0 +1,12 @@
+.app-badge {
+
+  &__icon {
+    width: 110px;
+    height: 50px;
+
+    &--android {
+      width: 120px;
+      margin-right: size(1);
+    }
+  }
+}

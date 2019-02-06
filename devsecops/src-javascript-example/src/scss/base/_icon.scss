@@ -1,0 +1,207 @@
+//  Icons definitions
+//  In most cases SVG
+
+.icon {
+  $root: &;
+
+  transition: fill 250ms ease-in-out;
+  max-width: 100%;
+  display: inline-block;
+  fill: inherit;
+  width: size(3);
+  height: size(3);
+
+  &--block {
+    display: block;
+  }
+
+  &--bounce {
+    animation: bounce ease-in-out infinite 4s ;
+  }
+
+  @for $size from 1 through 10 {
+    &--size-#{$size} {
+      width: size($size);
+      height: size($size);
+    }
+  }
+
+  &--facebook {
+    transition: fill 250ms ease-in-out;
+    fill: $color-facebook;
+
+    &:hover,
+    &:focus,
+    &:active {
+      fill: darken($color-facebook, 10);
+    }
+  }
+
+  &--twitter {
+    transition: fill 250ms ease-in-out;
+    fill: $color-twitter;
+
+    &:hover,
+    &:focus,
+    &:active {
+      fill: darken($color-twitter, 10);
+    }
+  }
+
+  &--linked-in {
+    transition: fill 250ms ease-in-out;
+    fill: $color-linked-in;
+
+    &:hover,
+    &:focus,
+    &:active {
+      fill: darken($color-linked-in, 10);
+    }
+  }
+
+  &--weather {
+    height: size(5);
+    width: auto;
+  }
+
+  &--weather-1 {
+    width: size(5);
+    height: size(5);
+  }
+
+  &--weather-2 {
+    width: size(5);
+    height: size(4.5);
+  }
+
+  &--weather-3 {
+    width: size(5);
+    height: size(7.75);
+  }
+
+  &--weather-4 {
+    width: size(5);
+    height: size(8);
+  }
+
+  &--weather-5 {
+    width: size(5);
+    height: size(8.5);
+  }
+
+  &--weather-6 {
+    width: size(5);
+    height: size(8.5);
+  }
+
+  &--weather-7 {
+    width: size(5);
+    height: size(5.25);
+  }
+
+  &--weather-8 {
+    width: size(5);
+    height: size(5.25);
+  }
+
+  &--weather-9 {
+    width: size(5);
+    height: size(5.25);
+  }
+
+  &--weather-10 {
+    width: size(5);
+    height: size(5.75);
+  }
+
+  &--weather-11 {
+    width: size(5);
+    height: size(5.25);
+  }
+
+  &--weather-12 {
+    width: size(5);
+    height: size(6);
+  }
+
+  &--weather-13 {
+    width: size(5);
+    height: size(6);
+  }
+
+  &--weather-14 {
+    width: size(5);
+    height: size(5.75);
+  }
+
+  &--weather-15 {
+    width: size(5);
+    height: size(5.75);
+  }
+
+  &--logo-mg {
+    width: 76px;
+    height: 36px;
+    fill: $color-white;
+  }
+
+  &--logo-fa {
+    // To reduce whitespace inside icon
+    margin-top: -8px;
+    margin-bottom: -8px;
+    width: 80px;
+    height: 40px;
+    fill: $color-white;
+  }
+
+  &--logo-lo {
+    width: 94px;
+    height: 22px;
+    fill: $color-white;
+  }
+
+  &--logo-lojo {
+    width: 130px;
+    height: 20px;
+    fill: $color-white;
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+link,
+button {
+  // Fix IE bug, where svg click event does not bubble up
+  .icon {
+    pointer-events: none;
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+
+  15% {
+    transform: translateY(-8px);
+  }
+
+  20% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-2px);
+  }
+
+  27% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+
+}

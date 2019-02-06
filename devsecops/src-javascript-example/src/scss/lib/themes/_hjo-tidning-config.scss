@@ -1,0 +1,76 @@
+$hjo-tidning-colors: (
+  "main": #2C6F85,
+  "main-secondary": #49CFD2,
+  "family": #94e3e5,
+  "opinion": #ffffff,
+  "fun": #ffffff,
+  "sport": #94e3e5,
+  "culture": #ffffff,
+  "theme": #ffffff,
+  "other": #ffffff,
+
+  // Base elements
+  "link": #2c6f85,
+  "link-hover": darken(#2c6f85, 10),
+
+  // Mark
+  "mark": #da3038,
+
+  // Components
+  "button-primary": #2c6f85,
+  "button-secondary": #49CFD2,
+
+  "footer-text": #ffffff,
+  "footer-background": #183038,
+  "footer-link": #49CFD2,
+  "footer-button": #49CFD2,
+
+  // Header
+  "header-background-main": #2C6F85,
+  "header-color-main": #FFFFFF,
+
+  "header-background-family": #94e3e5,
+  "header-color-family": #FFFFFF,
+
+  "header-background-opinion":  #ffffff,
+  "header-color-opinion": #1d1e1f,
+
+  "header-background-fun": #ffffff,
+  "header-color-fun": #1d1e1f,
+
+  "header-background-sport": #94e3e5,
+  "header-color-sport": #ffffff,
+
+  "header-background-culture": #ffffff,
+  "header-color-culture": #1d1e1f,
+
+  "header-background-theme": #ffffff,
+  "header-color-theme": #1d1e1f,
+
+  "header-background-other": #ffffff,
+  "header-color-other": #1d1e1f,
+
+  // Shade
+  "shade": #e3ebee
+);
+
+$hjo-tidning-sizes: (
+  "logo": (
+    "large": (
+      "width": 368px,
+      "height": 94px,
+    ),
+    "small": (
+      "width": 50px,
+      "height": 30px,
+    ),
+    "mobile": (
+      "width": 60px,
+      "height": 32px,
+    ),
+    "footer": (
+      "width": 217px,
+      "height": 48px,
+    )
+  )
+);

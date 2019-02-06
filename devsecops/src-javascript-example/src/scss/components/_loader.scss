@@ -1,0 +1,80 @@
+.loader {
+  $root: &;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: size(2.5);
+  height: size(2.5);
+
+  &--snake {
+    #{$root}__tile {
+      animation-name: loading-tile-snake;
+    }
+  }
+
+  &__tile {
+    width: size(1);
+    height: size(1);
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+    animation: loading-tile 4s linear infinite;
+
+    $order: (0 1 3 2);
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{nth($order, $i)/2}#{s};
+      }
+    }
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+
+}
+
+@keyframes loading-tile {
+  0% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+
+  12.5% {
+    background-color: get-theme-color($currentTheme, "main");
+  }
+
+  50% {
+    background-color: get-theme-color($currentTheme, "main");
+  }
+
+  62.5% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+
+  100% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+}
+
+@keyframes loading-tile-snake {
+  0% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+
+  25% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+
+  50% {
+    background-color: get-theme-color($currentTheme, "main");
+  }
+
+  75% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+
+  100% {
+    background-color: rgba(get-theme-color($currentTheme, "main"), 0.15);
+  }
+}

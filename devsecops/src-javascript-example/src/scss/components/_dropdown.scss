@@ -1,0 +1,89 @@
+.dropdown {
+  $root: &;
+
+  @include elevation("sticky");
+  min-width: size(35);
+
+  @include respond-to("small") {
+    min-width: size(40);
+  }
+
+  &--slim {
+    min-width: size(16);
+
+    @include respond-to("small") {
+      min-width: size(14);
+    }
+
+    #{$root}__icon {
+      @include respond-to("small") {
+        right: size(3);
+      }
+    }
+
+    #{$root}__link {
+      @include respond-to("small") {
+        padding-left: size(3);
+        padding-right: size(3);
+      }
+    }
+  }
+
+  &__list {
+    padding: size(1) 0;
+    margin: 0;
+    list-style: none;
+
+    & + & {
+      margin-top: size(1);
+      border-top: 1px solid $color-pale-grey;
+    }
+  }
+
+  &__item {
+    display: block;
+    padding: 0;
+
+    &--has-icon {
+      position: relative;
+    }
+  }
+
+  &__icon {
+    display: block;
+    width: size(3);
+    height: size(3);
+    position: absolute;
+    top: 50%;
+    right: size(2);
+    transform: translateY(-50%);
+    fill: get-theme-color($currentTheme, "shade");
+    pointer-events: none;
+
+    @include respond-to("small") {
+      right: size(4);
+    }
+  }
+
+  &__link {
+    transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+    display: block;
+    width: 100%;
+    padding: size(1) size(2);
+    background-color: rgba(get-theme-color($currentTheme, "shade"), 0);
+    color: $color-gray-dark;
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: get-theme-color($currentTheme, "shade");
+      color: get-theme-color($currentTheme, "link");
+    }
+
+    @include respond-to("small") {
+      padding-left: size(4);
+      padding-right: size(4);
+    }
+  }
+}

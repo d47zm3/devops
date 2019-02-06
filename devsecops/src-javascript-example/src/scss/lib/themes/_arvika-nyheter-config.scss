@@ -1,0 +1,76 @@
+$arvika-nyheter-colors: (
+  "main": #00518d,
+  "main-secondary": #61B3ED,
+  "family": #cc1919,
+  "opinion": #f29d00,
+  "fun": #ffffff,
+  "sport": #57bcbf,
+  "culture": #dfd8b2,
+  "theme": #6c4289,
+  "other": #ffffff,
+
+  // Base elements
+  "link": #00518d,
+  "link-hover": darken(#00518d, 10),
+
+  // Mark
+  "mark": #da3038,
+
+  // Components
+  "button-primary": #00518d,
+  "button-secondary": #61B3ED,
+
+  "footer-text": #ffffff,
+  "footer-background": #001D33,
+  "footer-link": #61B3ED,
+  "footer-button": #61B3ED,
+
+  // Header
+  "header-background-main": #00518d,
+  "header-color-main": #FFFFFF,
+
+  "header-background-family": #cc1919,
+  "header-color-family": #ffffff,
+
+  "header-background-opinion":  #f29d00,
+  "header-color-opinion": #ffffff,
+
+  "header-background-fun": #ffffff,
+  "header-color-fun": #1d1e1f,
+
+  "header-background-sport": #57bcbf,
+  "header-color-sport": #ffffff,
+
+  "header-background-culture": #dfd8b2,
+  "header-color-culture": #1d1e1f,
+
+  "header-background-theme": #6c4289,
+  "header-color-theme": #FFFFFF,
+
+  "header-background-other": #ffffff,
+  "header-color-other": #1d1e1f,
+
+  // Shade
+  "shade": #e3ebee
+);
+
+$arvika-nyheter-sizes: (
+  "logo": (
+    "large": (
+      "width": 368px,
+      "height": 48px,
+    ),
+    "small": (
+      "width": 50px,
+      "height": 30px,
+    ),
+    "mobile": (
+      "width": 60px,
+      "height": 32px,
+    ),
+    "footer": (
+      "width": 260px,
+      "height": 48px,
+    )
+  )
+);
