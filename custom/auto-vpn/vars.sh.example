@@ -1,0 +1,9 @@
+#!/bin/bash
+
+provider="digitalocean"
+ssh_key="${HOME}/.ssh/id_rsa"
+server_name="vpn"
+region="ams3"
+vpn_ipsec_psk="secret"
+vpn_user="username"
+vpn_password="secret"

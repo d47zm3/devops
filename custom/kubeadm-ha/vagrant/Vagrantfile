@@ -1,0 +1,39 @@
+# Specify minimum Vagrant version and Vagrant API version
+Vagrant.require_version ">= 1.6.0"
+VAGRANTFILE_API_VERSION = "2"
+ 
+# Require YAML module
+require 'yaml'
+ 
+# Read YAML file with box details
+servers = YAML.load_file('servers.yaml')
+ 
+# Create boxes
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+ 
+  # Iterate through entries in YAML file
+  servers.each do |servers|
+    config.vm.define servers["name"] do |srv|
+      srv.vm.synced_folder '.', '/vagrant', disabled: true
+      srv.vm.hostname = servers["name"]
+      srv.vm.box = servers["box"]
+      srv.vm.network "private_network", ip: servers["ip"]
+      srv.vm.network :forwarded_port, guest: 22, host: servers["port"], id: 'ssh'
+      srv.vm.provider :virtualbox do |vb|
+        vb.name = servers["name"]
+        vb.memory = servers["ram"]
+      srv.vm.provision "shell", inline: <<-SHELL
+        sudo rm -rf /root/.ssh/
+        sudo mkdir /root/.ssh
+        sudo chmod 700 /root/.ssh
+        echo "<your public ssh key here>" | sudo tee /root/.ssh/authorized_keys
+        sudo chmod 600 /root/.ssh/authorized_keys
+        sudo sed -i 's/^127.*/127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4/g' /etc/hosts
+        echo "$(hostname -I | awk ' { print $2 } ') $HOSTNAME" | sudo tee -a /etc/hosts
+      SHELL
+	vb.cpus = servers["cpu"]
+      end
+    end
+  end
+end
+
