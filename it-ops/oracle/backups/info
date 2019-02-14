@@ -1,0 +1,23 @@
+# Author: d47zm3
+# Creating cold backup of Oracle database to NFS share
+# - check if NFS share is mounted
+# - create destitnation dirs
+# - create custom RMAN scripts to run
+# - stop/mount database and start RMAN
+# - open database and verify it
+
+# backup_databases.sh  
+
+incremental (hot) backup / cold full backup
+
+# cold_backup_databases.sh  
+
+only cold backup
+
+# prepare_rman.sh  
+
+subscript to create RMAN queries
+
+# rman.backup.template
+
+template

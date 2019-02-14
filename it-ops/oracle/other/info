@@ -1,0 +1,15 @@
+#register_db.sh
+
+Register DB with srvctl
+
+#rename_db.sh
+
+Rename DB (ORACLE SID) to new SID
+
+#shutdown.sh
+
+Shutdown all instances
+
+#startup.sh
+
+Startup all instances

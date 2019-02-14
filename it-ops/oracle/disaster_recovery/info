@@ -1,0 +1,1 @@
+# scripts to restore and recover database from backup, first preparing nfs share with backup and then doing restore (to ASM!)
